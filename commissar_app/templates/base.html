@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link type="image/x-icon" rel="favicon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <title>{{ title }}</title>
+    <style>
+    body {
+        background-color: #1e2c26;
+        opacity: 1;
+        background-size: 23px 23px;
+        background-image: repeating-linear-gradient(45deg, #0f4b33 0, #0f4b33 2.3000000000000003px, #1e2c26 0, #1e2c26 50%);
+    }
+    .container {
+    }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-sm  justify-content-center">
+            <div class="navbar-brand text-light">
+                <img src="{{ url_for('static', filename='img/icon.png') }}" alt="logo"  style="width:32px;" >
+                {{ title }}
+            </div>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link text-light active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" aria-current="page" href="/status.html">Status</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <div class="row" id="content">
+            {% block content %}{% endblock %}
+        </div> <!-- row -->
+
+    </div> <!-- container -->
+
+    <footer class="row">
+        <div class="d-flex justify-content-center">
+            <p class="small text-light">&copy; 2023 Fel Nokron</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+
+</body>
+</html>

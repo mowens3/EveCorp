@@ -1,0 +1,6 @@
+setuptools==68.2.2
+PyYAML~=6.0
+flask~=3.0.0
+python-jose~=3.3.0
+psycopg2-binary~=2.9.9
+SQLAlchemy~=2.0.22

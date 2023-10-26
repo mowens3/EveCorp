@@ -1,0 +1,10 @@
+setuptools==68.2.2
+PyYAML~=6.0
+httpx==0.25.0
+tenacity~=8.2.3
+flask~=3.0.0
+nextcord~=2.6.0
+cachetools~=5.3.1
+python-jose~=3.3.0
+psycopg2-binary~=2.9.9
+SQLAlchemy~=2.0.22
