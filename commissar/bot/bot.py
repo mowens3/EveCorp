@@ -1,12 +1,12 @@
 import nextcord
 from nextcord.ext import commands
 
-from bot.cogs.admin_cog import AdminCog
-from bot.cogs.auto_cog import AutoCog
-from bot.cogs.register_cog import RegisterCog
-from core import SingletonMeta
-from core import ConfigLoader
-from core.log import LOGGER
+from commissar.bot.cogs.admin_cog import AdminCog
+from commissar.bot.cogs.auto_cog import AutoCog
+from commissar.bot.cogs.register_cog import RegisterCog
+from commissar.core import SingletonMeta
+from commissar.core import ConfigLoader
+from commissar.core.log import LOGGER
 
 
 class CommissarBot(commands.Bot, metaclass=SingletonMeta):

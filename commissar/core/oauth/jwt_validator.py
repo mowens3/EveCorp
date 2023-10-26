@@ -1,7 +1,7 @@
 import httpx
 from jose import jwt, ExpiredSignatureError, JWTError
 
-from core import LOGGER
+from commissar.core import LOGGER
 
 
 class JWTValidator:

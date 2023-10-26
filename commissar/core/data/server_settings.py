@@ -1,7 +1,7 @@
 """Functions repository for ServerSettings
 """
-from core.data import get_session, ServerSettings
-from core.log import LOGGER
+from commissar.core.data import get_session, ServerSettings
+from commissar.core.log import LOGGER
 
 
 def create(discord_server_id: int, discord_server_name: str) -> None:

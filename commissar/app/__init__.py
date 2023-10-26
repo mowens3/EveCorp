@@ -3,9 +3,9 @@ import os
 import sys
 from pathlib import Path
 
-import core
-from core.config import ConfigLoader
-from core.log import FORMATTER, LOGGING_FORMAT
+from commissar import core
+from commissar.core.config import ConfigLoader
+from commissar.core.log import FORMATTER, LOGGING_FORMAT
 
 # info
 APP_NAME = "EVECommissarApp"
@@ -14,7 +14,7 @@ APP_DESCRIPTION = '''EVECommissarApp is a simple flask application.
 APP_VERSION = '0.0.1'
 
 # paths
-ROOT_DIR_PATH = Path(__file__).parents[1]
+ROOT_DIR_PATH = Path(__file__).parents[2]
 LOG_DIR_PATH = os.path.join(ROOT_DIR_PATH, 'logs')
 CFG_DIR_PATH = os.path.join(ROOT_DIR_PATH, 'config')
 CONFIG_FILENAME = 'app_config.yml'

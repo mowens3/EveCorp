@@ -2,18 +2,18 @@ import nextcord
 from nextcord import Permissions, SlashOption, Locale
 from nextcord.ext import commands
 
-from bot.exception import BotException
-from bot.helpers import ZKILLBOARD_CORPORATION_URL_PATTERN, EMOJI_POSITIVE, EMOJI_NEGATIVE, \
+from commissar.bot.exception import BotException
+from commissar.bot.helpers import ZKILLBOARD_CORPORATION_URL_PATTERN, EMOJI_POSITIVE, EMOJI_NEGATIVE, \
     ZKILLBOARD_CHARACTER_URL_PATTERN
-from bot.localizations import get_localized, GUILD_ONLY_LOC, CORP_NOT_FOUND_LOC, ROLE_ID_SET_LOC, \
+from commissar.bot.localizations import get_localized, GUILD_ONLY_LOC, CORP_NOT_FOUND_LOC, ROLE_ID_SET_LOC, \
     SOMETHING_WENT_WRONG_LOC, CURRENT_SETTINGS_LOC, ROLE_NOT_FOUND_LOC, SETTINGS_NOT_FOUND_LOC, MEMBER_INFO_LOC, \
     CHARACTER_NOT_FOUND_LOC, USER_NOT_REGISTERED_LOC, QUERY_STRING_TOO_SHORT_LOC, CHARACTER_INFO_LOC, \
     QUERY_CHARACTERS_NOT_FOUND_LOC, REPORT_INFO_LOC, CORP_ID_SET_LOC
-from bot.response import bot_response, bot_response_multi
-from core.data import server_settings
-from core.data import character, user_data
-from core.esi.esi import ESI
-from core.log import LOGGER
+from commissar.bot.response import bot_response, bot_response_multi
+from commissar.core.data import server_settings
+from commissar.core.data import character, user_data
+from commissar.core.esi.esi import ESI
+from commissar.core.log import LOGGER
 
 
 class AdminCog(commands.Cog):

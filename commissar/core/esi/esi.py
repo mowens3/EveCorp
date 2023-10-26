@@ -3,11 +3,11 @@ import asyncio
 import cachetools
 import httpx
 
-from core import SingletonMeta
-from core.esi.http_client import CustomHTTPClient
+from commissar.core import SingletonMeta
+from commissar.core.esi.http_client import CustomHTTPClient
 from tenacity import retry, stop_after_attempt, wait_fixed, retry_if_exception
 
-from core.log import LOGGER
+from commissar.core.log import LOGGER
 
 
 class RetryStrategy(retry_if_exception):

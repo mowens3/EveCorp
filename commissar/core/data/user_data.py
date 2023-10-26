@@ -1,7 +1,7 @@
 """Functions repository for UserData
 """
 
-from core.data import get_session, UserData
+from commissar.core.data import get_session, UserData
 
 
 def create(discord_server_id: int, discord_user_id: int, discord_user_name: str) -> None:

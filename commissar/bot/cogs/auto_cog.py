@@ -1,9 +1,9 @@
 from nextcord.ext import commands, tasks
 
-from core.data import auth_attempt, server_settings
-from core.data import user_data
-from core.esi.esi import ESI
-from core.log import LOGGER
+from commissar.core.data import auth_attempt, server_settings
+from commissar.core.data import user_data
+from commissar.core.esi.esi import ESI
+from commissar.core.log import LOGGER
 
 
 class AutoCog(commands.Cog):

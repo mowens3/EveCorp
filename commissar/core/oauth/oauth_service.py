@@ -1,11 +1,12 @@
 import uuid
 import httpx
 
-from core import SingletonMeta
-from core.config import ConfigLoader
-from core.log import LOGGER
-from core.oauth import helpers, AccessInfo, AuthorizationInfo, TokenStatus
-from core.oauth.access_info import parse_token_response, check_access_info
+from commissar.core import SingletonMeta
+from commissar.core.config import ConfigLoader
+from commissar.core.log import LOGGER
+from commissar.core.oauth import AccessInfo, AuthorizationInfo, TokenStatus
+from commissar.core.oauth import helpers
+from commissar.core.oauth.access_info import parse_token_response, check_access_info
 
 
 class OAuthService(metaclass=SingletonMeta):

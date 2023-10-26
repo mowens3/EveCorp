@@ -1,4 +1,4 @@
-from app.app import start
+from commissar.app.app import start
 
 if __name__ == '__main__':
     start()

@@ -3,15 +3,15 @@ import tenacity
 from nextcord import SlashOption, Permissions
 from nextcord.ext import commands
 
-from bot.exception import BotException
-from bot.localizations import *
-from bot.response import bot_response, bot_response_multi
-from core import AuthAttempt, UserData, Character, AUTH_ATTEMPT_TTL_MINUTES
-from core.data import auth_attempt, server_settings
-from core.data import character, user_data
-from core.esi.esi import ESI
-from core.log import LOGGER
-from core.oauth.oauth_service import OAuthService
+from commissar.bot.exception import BotException
+from commissar.bot.localizations import *
+from commissar.bot.response import bot_response, bot_response_multi
+from commissar.core import AuthAttempt, UserData, Character, AUTH_ATTEMPT_TTL_MINUTES
+from commissar.core.data import auth_attempt, server_settings
+from commissar.core.data import character, user_data
+from commissar.core.esi.esi import ESI
+from commissar.core.log import LOGGER
+from commissar.core.oauth.oauth_service import OAuthService
 
 
 class RegisterMessage(nextcord.ui.View):
