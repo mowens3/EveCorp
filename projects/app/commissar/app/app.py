@@ -3,13 +3,15 @@
 from flask import Flask, request, render_template
 from httpx import HTTPError
 
-from commissar.app import ErrorWithCode, APP_NAME
-from commissar.core.config import ConfigLoader
-from commissar.core.data import auth_attempt, server_settings, Character, UserData
-from commissar.core.data import character, user_data
-from commissar.core.log import LOGGER
-from commissar.core.oauth.helpers import validate
-from commissar.core.oauth.oauth_service import OAuthService
+from lib.commissar.core.config import ConfigLoader
+from lib.commissar.core.data import Character, UserData
+from lib.commissar.core.data import server_settings
+from lib.commissar.core.data import character, user_data
+from lib.commissar.core.data import auth_attempt
+from lib.commissar.core.log import LOGGER
+from lib.commissar.core.oauth.helpers import validate
+from lib.commissar.core.oauth.oauth_service import OAuthService
+from projects.app.commissar.app import APP_NAME, ErrorWithCode
 
 cfg = ConfigLoader().config
 host = cfg['app']['hostname']

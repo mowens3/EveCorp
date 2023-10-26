@@ -10,10 +10,9 @@ from commissar.bot.localizations import get_localized, GUILD_ONLY_LOC, CORP_NOT_
     CHARACTER_NOT_FOUND_LOC, USER_NOT_REGISTERED_LOC, QUERY_STRING_TOO_SHORT_LOC, CHARACTER_INFO_LOC, \
     QUERY_CHARACTERS_NOT_FOUND_LOC, REPORT_INFO_LOC, CORP_ID_SET_LOC
 from commissar.bot.response import bot_response, bot_response_multi
-from commissar.core.data import server_settings
-from commissar.core.data import character, user_data
-from commissar.core.esi.esi import ESI
-from commissar.core.log import LOGGER
+from lib.commissar.core.data import server_settings, character, user_data
+from lib.commissar.core.esi.esi import ESI
+from lib.commissar.core.log import LOGGER
 
 
 class AdminCog(commands.Cog):

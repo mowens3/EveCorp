@@ -6,12 +6,11 @@ from nextcord.ext import commands
 from commissar.bot.exception import BotException
 from commissar.bot.localizations import *
 from commissar.bot.response import bot_response, bot_response_multi
-from commissar.core import AuthAttempt, UserData, Character, AUTH_ATTEMPT_TTL_MINUTES
-from commissar.core.data import auth_attempt, server_settings
-from commissar.core.data import character, user_data
-from commissar.core.esi.esi import ESI
-from commissar.core.log import LOGGER
-from commissar.core.oauth.oauth_service import OAuthService
+from lib.commissar.core import AuthAttempt, UserData, Character, AUTH_ATTEMPT_TTL_MINUTES
+from lib.commissar.core.data import auth_attempt, server_settings, character, user_data
+from lib.commissar.core.esi.esi import ESI
+from lib.commissar.core.log import LOGGER
+from lib.commissar.core.oauth.oauth_service import OAuthService
 
 
 class RegisterMessage(nextcord.ui.View):
