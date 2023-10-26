@@ -1,4 +1,4 @@
-from commissar_core.esi.esi import ESI
+from core.esi.esi import ESI
 
 
 def verify_single(character_id: int, corporation_id: int) -> bool:

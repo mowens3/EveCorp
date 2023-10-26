@@ -3,9 +3,9 @@ import os
 import sys
 from pathlib import Path
 
-import commissar_core
-from commissar_core.config import ConfigLoader
-from commissar_core.log import FORMATTER, LOGGING_FORMAT
+import core
+from core.config import ConfigLoader
+from core.log import FORMATTER, LOGGING_FORMAT
 
 # info
 APP_NAME = "EVECommissarApp"
@@ -42,7 +42,7 @@ logging.basicConfig(
     ]
 )
 
-commissar_core.LOGGER = logging.getLogger("logger")
+core.LOGGER = logging.getLogger("logger")
 cl = ConfigLoader(CONFIG_FILEPATH)
 
 

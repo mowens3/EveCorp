@@ -2,7 +2,7 @@
 """Functions repository for Character
 """
 
-from commissar_core.data import get_session, Character
+from core.data import get_session, Character
 
 
 def create(character_id: int, character_name: str, discord_server_id: int, user_data_id: int) -> None:

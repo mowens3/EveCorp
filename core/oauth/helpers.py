@@ -7,7 +7,7 @@ import re
 import hashlib
 from jose import ExpiredSignatureError
 
-from commissar_core.oauth.jwt_validator import JWTValidator
+from core.oauth.jwt_validator import JWTValidator
 
 ENCODING = "utf-8"
 CODE_VERIFIER_RAW = 64

@@ -1,7 +1,7 @@
 from nextcord import Locale
 from nextcord.ext import commands
 
-from commissar_bot.bot import APP_NAME, get_localized, ROLE_GRANTED_LOC, ROLE_ALREADY_GRANTED_LOC
+from bot.bot import APP_NAME, get_localized, ROLE_GRANTED_LOC, ROLE_ALREADY_GRANTED_LOC
 
 
 async def bot_grant(

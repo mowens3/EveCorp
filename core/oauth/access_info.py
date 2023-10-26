@@ -3,8 +3,8 @@
 
 from datetime import timedelta, datetime
 
-from commissar_core import LOGGER
-from commissar_core.oauth import AccessInfo, TokenStatus
+from core import LOGGER
+from core.oauth import AccessInfo, TokenStatus
 
 
 def parse_token_response(data: dict) -> AccessInfo:

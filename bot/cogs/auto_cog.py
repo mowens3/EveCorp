@@ -1,10 +1,9 @@
-import asyncio
-
 from nextcord.ext import commands, tasks
 
-from commissar_core.data import auth_attempt, user_data, server_settings
-from commissar_core.esi.esi import ESI
-from commissar_core.log import LOGGER
+from core.data import auth_attempt, server_settings
+from core.data import user_data
+from core.esi.esi import ESI
+from core.log import LOGGER
 
 
 class AutoCog(commands.Cog):
