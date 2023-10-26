@@ -14,7 +14,7 @@ APP_DESCRIPTION = '''EVECommissarApp is a simple flask application.
 APP_VERSION = '0.0.1'
 
 # paths
-ROOT_DIR_PATH = Path(__file__).parents[2]
+ROOT_DIR_PATH = Path(__file__).parents[1]
 LOG_DIR_PATH = os.path.join(ROOT_DIR_PATH, 'logs')
 CFG_DIR_PATH = os.path.join(ROOT_DIR_PATH, 'config')
 CONFIG_FILENAME = 'app_config.yml'

@@ -2,14 +2,14 @@ import nextcord
 from nextcord import Permissions, SlashOption, Locale
 from nextcord.ext import commands
 
-from commissar_bot.bot.exception import BotException
-from commissar_bot.bot.helpers import ZKILLBOARD_CORPORATION_URL_PATTERN, EMOJI_POSITIVE, EMOJI_NEGATIVE, \
+from commissar_bot.exception import BotException
+from commissar_bot.helpers import ZKILLBOARD_CORPORATION_URL_PATTERN, EMOJI_POSITIVE, EMOJI_NEGATIVE, \
     ZKILLBOARD_CHARACTER_URL_PATTERN
-from commissar_bot.bot.localizations import get_localized, GUILD_ONLY_LOC, CORP_NOT_FOUND_LOC, ROLE_ID_SET_LOC, \
+from commissar_bot.localizations import get_localized, GUILD_ONLY_LOC, CORP_NOT_FOUND_LOC, ROLE_ID_SET_LOC, \
     SOMETHING_WENT_WRONG_LOC, CURRENT_SETTINGS_LOC, ROLE_NOT_FOUND_LOC, SETTINGS_NOT_FOUND_LOC, MEMBER_INFO_LOC, \
     CHARACTER_NOT_FOUND_LOC, USER_NOT_REGISTERED_LOC, QUERY_STRING_TOO_SHORT_LOC, CHARACTER_INFO_LOC, \
     QUERY_CHARACTERS_NOT_FOUND_LOC, REPORT_INFO_LOC, CORP_ID_SET_LOC
-from commissar_bot.bot.response import bot_response, bot_response_multi
+from commissar_bot.response import bot_response, bot_response_multi
 from commissar_core.data import server_settings, user_data, character
 from commissar_core.esi.esi import ESI
 from commissar_core.log import LOGGER

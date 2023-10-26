@@ -1,4 +1,4 @@
-from commissar_app.app import app
+from commissar_app import app
 
 
 if __name__ == '__main__':

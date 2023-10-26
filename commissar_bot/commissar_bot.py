@@ -1,9 +1,9 @@
 import nextcord
 from nextcord.ext import commands
 
-from commissar_bot.bot.cogs.admin_cog import AdminCog
-from commissar_bot.bot.cogs.auto_cog import AutoCog
-from commissar_bot.bot.cogs.register_cog import RegisterCog
+from commissar_bot.cogs.admin_cog import AdminCog
+from commissar_bot.cogs.auto_cog import AutoCog
+from commissar_bot.cogs.register_cog import RegisterCog
 from commissar_core import SingletonMeta
 from commissar_core.config import ConfigLoader
 from commissar_core.log import LOGGER

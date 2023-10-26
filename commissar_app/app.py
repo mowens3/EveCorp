@@ -3,7 +3,7 @@
 from flask import Flask, request, render_template
 from httpx import HTTPError
 
-from commissar_app.app import ErrorWithCode, APP_NAME
+from commissar_app import ErrorWithCode, APP_NAME
 from commissar_core.config import ConfigLoader
 from commissar_core.data import server_settings, user_data, UserData, Character, character, auth_attempt
 from commissar_core.log import LOGGER

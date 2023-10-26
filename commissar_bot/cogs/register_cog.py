@@ -4,9 +4,9 @@ from nextcord import SlashOption, Permissions
 from nextcord.ext import commands
 
 from commissar_bot.bot import APP_NAME
-from commissar_bot.bot.exception import BotException
-from commissar_bot.bot.localizations import *
-from commissar_bot.bot.response import bot_response, bot_response_multi
+from commissar_bot.exception import BotException
+from commissar_bot.localizations import *
+from commissar_bot.response import bot_response, bot_response_multi
 from commissar_core.data import AuthAttempt, server_settings, auth_attempt, user_data, UserData, Character, character, \
     AUTH_ATTEMPT_TTL_MINUTES
 from commissar_core.esi.esi import ESI
