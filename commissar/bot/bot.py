@@ -3,10 +3,11 @@ from nextcord.ext import commands
 
 from commissar.bot.cogs.admin_cog import AdminCog
 from commissar.bot.cogs.auto_cog import AutoCog
-from commissar.bot.cogs.register_cog import RegisterCog
-from lib.commissar.core import SingletonMeta
-from lib.commissar.core import ConfigLoader
-from lib.commissar.core.log import LOGGER
+from commissar.bot.cogs.public_cog import PublicCog
+from commissar.bot.cogs.rules_cog import RulesCog
+from commissar.core import SingletonMeta
+from commissar.core.config import ConfigLoader
+from commissar.core.log import LOGGER
 
 
 class CommissarBot(commands.Bot, metaclass=SingletonMeta):
@@ -16,7 +17,8 @@ class CommissarBot(commands.Bot, metaclass=SingletonMeta):
         intents.message_content = True
         super().__init__(*args, **kwargs, command_prefix='$', intents=intents)
         self.add_cog(AdminCog(self))
-        self.add_cog(RegisterCog(self))
+        self.add_cog(RulesCog(self))
+        self.add_cog(PublicCog(self))
         self.add_cog(AutoCog(self))
         self.guild_ids = None
 
@@ -35,7 +37,6 @@ class CommissarBot(commands.Bot, metaclass=SingletonMeta):
 
 
 def start() -> None:
-    pass
     cfg = ConfigLoader().config
     token = cfg['discord']['token']
     bot = CommissarBot()
