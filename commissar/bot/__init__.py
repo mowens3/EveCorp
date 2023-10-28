@@ -43,5 +43,6 @@ logging.basicConfig(
 )
 
 core.LOGGER = logging.getLogger("logger")
-cl = ConfigLoader(CONFIG_FILEPATH)
+cl = ConfigLoader()
+cl.filepath = CONFIG_FILEPATH
 
