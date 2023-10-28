@@ -25,23 +25,18 @@ GUILD_ONLY = {
 """Rules related messages
 """
 
-SERVER_DATA_NOT_FOUND = {
-    Locale.en_US.__str__(): "Data for ***{}*** not found.",
-    Locale.ru.__str__(): "Данные для ***{}*** не найдены."
-}
-
 SERVER_RULES_NOT_FOUND = {
     Locale.en_US.__str__(): "Rules for ***{}*** not found.",
     Locale.ru.__str__(): "Правила для ***{}*** не найдены."
 }
 
-RULE_CREATED = {
-    Locale.en_US.__str__(): "Created server rule for ***{}***:\n"
+SERVER_RULE_CREATED = {
+    Locale.en_US.__str__(): "New rule for ***{}***:\n"
                             "* Server role: {}\n"
                             "* EVE Online Corporation: [{} [{}]]({})\n"
                             "* Notification channel: {}\n"
                             "* Notification language: {}",
-    Locale.ru.__str__(): "Созданное правило для ***{}***:\n"
+    Locale.ru.__str__(): "Новое правило для ***{}***:\n"
                          "* Роль на сервере: {}\n"
                          "* Корпорация EVE Online: [{} [{}]]({})\n"
                          "* Канал для уведомлений: {}\n"
@@ -104,6 +99,11 @@ ROLE_NOT_FOUND = {
 CHANNEL_NOT_FOUND = {
     Locale.en_US.__str__(): "Server channel {} `ID: {}` no longer exist.",
     Locale.ru.__str__(): "Канал на сервере {} `ID: {}` не существует."
+}
+
+MEMBER_NOT_FOUND = {
+    Locale.en_US.__str__(): "User '{}' not found",
+    Locale.ru.__str__(): "Пользователь '{}' не найден"
 }
 
 MEMBER_INFO = {
@@ -174,6 +174,11 @@ REGISTERED_USERS_HEADER = {
     Locale.ru.__str__(): "Зарегистрированные пользователи:"
 }
 
+NO_UNREGISTERED_USERS_HEADER = {
+    Locale.en_US.__str__(): "All users registered.",
+    Locale.ru.__str__(): "Все пользователи зарегистрированы."
+}
+
 UNREGISTERED_USERS_HEADER = {
     Locale.en_US.__str__(): "Unregistered users:",
     Locale.ru.__str__(): "Незарегистрированные пользователи:"
@@ -224,6 +229,11 @@ ROLE_REVOKED = {
     Locale.ru.__str__(): "Роль {} пользователя {} отозвана."
 }
 
+INVALID_PERMISSIONS_MEMBER_LIST = {
+    Locale.en_US.__str__(): "EVECommissar probably doesn't have permissions to access member list.",
+    Locale.ru.__str__(): "EVECommissar вероятно не имеет разрешений для доступа к списку пользователей сервера."
+}
+
 # '/who' query related messages
 
 QUERY_STRING_TOO_SHORT = {
@@ -235,6 +245,8 @@ QUERY_CHARACTERS_NOT_FOUND = {
     Locale.en_US.__str__(): "EVE Online Characters not found.",
     Locale.ru.__str__(): "Персонажи EVE Online не найдены."
 }
+
+# /help
 
 HELP_ADMIN = {
     Locale.en_US.__str__(): """

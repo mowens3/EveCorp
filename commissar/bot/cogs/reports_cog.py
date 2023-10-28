@@ -32,11 +32,13 @@ class ReportsCog(commands.Cog):
     )
     async def stats(self, interaction: nextcord.Interaction):
         loc = interaction.locale
-        # no bots
-        total_users_count = sum(1 if not m.bot else 0 for m in interaction.guild.members)
-        registered_users_count = 0
-        characters_count = 0
         try:
+            # no bots
+            total_users_count = sum([1 if not m.bot else 0 for m in interaction.guild.members])
+            if total_users_count == 0:
+                raise BotException(get_localized(INVALID_PERMISSIONS_MEMBER_LIST, loc))
+            registered_users_count = 0
+            characters_count = 0
             if interaction.guild is None:
                 raise BotException(get_localized(GUILD_ONLY, loc))
             users = user_data_repo.find_by_server_id(interaction.guild.id)
@@ -66,10 +68,12 @@ class ReportsCog(commands.Cog):
         try:
             if interaction.guild is None:
                 raise BotException(get_localized(GUILD_ONLY, loc))
-            users = user_data_repo.find_by_server_id(interaction.guild.id)
-            registered_user_ids = [u.discord_user_id for u in users]
-            messages.append(get_localized(UNREGISTERED_USERS_HEADER, loc))
+            registered_user = user_data_repo.find_by_server_id(interaction.guild.id)
+            registered_user_ids = [u.discord_user_id for u in registered_user]
             unregistered = [m for m in interaction.guild.members if not m.bot and m.id not in registered_user_ids]
+            if len(unregistered) == 0:
+                raise BotException(get_localized(NO_UNREGISTERED_USERS_HEADER, loc))
+            messages.append(get_localized(UNREGISTERED_USERS_HEADER, loc))
             for m in unregistered:
                 messages.append("- {}".format(m.mention))
             # send response with all messages
@@ -94,19 +98,22 @@ class ReportsCog(commands.Cog):
             if interaction.guild is None:
                 raise BotException(get_localized(GUILD_ONLY, loc))
             users = user_data_repo.find_by_server_id(interaction.guild.id)
-            if len(users) == 0:
+            if users is None or len(users) == 0:
                 raise BotException(get_localized(NO_REGISTERED_USERS, loc))
             messages.append(get_localized(REGISTERED_USERS_HEADER, loc))
             for u in users:
                 member = interaction.guild.get_member(u.discord_user_id)
-                roles = []
-                for r in member.roles:
-                    # except default permissions
-                    if r.name != '@everyone':
-                        roles.append(r.mention)
-                messages.append("- {} ({})".format(member.mention, ", ".join(roles)))
-                for c in u.characters:
-                    messages.append("  - {} `ID: {}`".format(c.character_name, c.character_id))
+                if member is None:
+                    LOGGER.warn("User '{}' (ID: {}) not found".format(u.discord_user_name, u.discord_user_id))
+                else:
+                    roles = []
+                    for r in member.roles:
+                        # except default permissions
+                        if r.name != '@everyone':
+                            roles.append(r.mention)
+                    messages.append("- {} ({})".format(member.mention, ", ".join(roles)))
+                    for c in u.characters:
+                        messages.append("  - {} `ID: {}`".format(c.character_name, c.character_id))
             # send response with all messages
             await bot_response_multi(interaction, messages)
         except BotException as e:

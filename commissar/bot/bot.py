@@ -14,11 +14,12 @@ from commissar import LOGGER
 
 class CommissarBot(commands.Bot, metaclass=SingletonMeta):
     def __init__(self):
-        super().__init__()
+        # fairly important stuff
         intents = nextcord.Intents.default()
+        intents.guilds = True
         intents.members = True
         intents.message_content = True
-        self.command_prefix = '$'
+        super().__init__(intents=intents, command_prefix='!')
         self.add_cog(AdminCog(self))
         self.add_cog(RulesCog(self))
         self.add_cog(PublicCog(self))

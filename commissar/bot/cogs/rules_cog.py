@@ -98,7 +98,7 @@ class RulesCog(commands.Cog, name="Rules"):
                 _link = ZKILLBOARD_CORPORATION_URL_PATTERN.format(r.corporation_id)
                 await bot_response(
                     interaction,
-                    get_localized(RULE_CREATED, loc).format(
+                    get_localized(SERVER_RULE_CREATED, loc).format(
                         interaction.guild.name, role.mention, data['name'], data['ticker'], _link,
                         channel.mention, _locale
                     )

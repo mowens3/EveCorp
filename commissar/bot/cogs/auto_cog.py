@@ -151,41 +151,52 @@ class AutoCog(commands.Cog):
         start = datetime.now()
         # only connected servers
         for guild in self.bot.guilds:
+            LOGGER.info(guild.name)
             rules = server_rule_repo.find_by_discord_server_id(guild.id)
+            if rules is None or len(rules) == 0:
+                LOGGER.info('No rules')
+                break
             grants = 0
             revokes = 0
             failed = 0
             for rule in rules:
-                if rules is not None and len(rules) > 0:
-                    role = guild.get_role(rule.discord_role_id)
-                    # do nothing if role is invalid
-                    if role is None:
+                LOGGER.info("Evaluating '{}' rule for role '{}'...".format(
+                    rule.discord_server_name, rule.discord_role_name
+                ))
+                role = guild.get_role(rule.discord_role_id)
+                # do nothing if role is invalid
+                if role is None:
+                    LOGGER.info('No role')
+                    break
+                channel = guild.get_channel(rule.discord_channel_id)
+                locale = Locale[rule.locale]
+                for u in user_data_repo.find_by_server_id(guild.id):
+                    member = guild.get_member(u.discord_user_id)
+                    if member is None:
+                        LOGGER.info("No member '{}' (ID: {}).".format(u.discord_user_name, u.discord_user_id))
                         break
-                    channel = guild.get_channel(rule.discord_channel_id)
-                    locale = Locale[rule.locale]
-                    for u in user_data_repo.find_by_server_id(guild.id):
-                        member = guild.get_member(u.discord_user_id)
-                        if member is None:
+                    found = False
+                    for c in u.characters:
+                        LOGGER.info(c.character_name)
+                        if c.corporation_id == rule.corporation_id:
+                            found = True
                             break
-                        found = False
-                        for c in u.characters:
-                            if c.corporation_id == rule.corporation_id:
-                                found = True
-                                break
-                        if found:
-                            if role not in member.roles:
-                                result = await self.grant(member, role, channel, locale)
-                                if result:
-                                    grants += 1
-                                else:
-                                    failed += 1
-                        else:
-                            if role in member.roles:
-                                result = self.revoke(member, role, channel, locale)
-                                if result:
-                                    revokes += 1
-                                else:
-                                    failed += 1
+                    if found:
+                        LOGGER.info('Found.')
+                        if role not in member.roles:
+                            result = await self.grant(member, role, channel, locale)
+                            if result:
+                                grants += 1
+                            else:
+                                failed += 1
+                    else:
+                        LOGGER.info('Not found.')
+                        if role in member.roles:
+                            result = self.revoke(member, role, channel, locale)
+                            if result:
+                                revokes += 1
+                            else:
+                                failed += 1
             LOGGER.info("Server '{}': Grants: {}, Revokes: {}, Failed: {}".format(
                 guild.name, grants, revokes, failed)
             )
