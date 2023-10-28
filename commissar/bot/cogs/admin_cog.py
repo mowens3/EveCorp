@@ -10,7 +10,7 @@ from commissar.bot.response import bot_response, bot_response_multi
 from commissar.core.data import character_repo, Character, UserData
 from commissar.core.data import user_data_repo
 from commissar.core.esi.esi import ESI
-from commissar.core.log import LOGGER
+from commissar import LOGGER
 
 
 class AdminCog(commands.Cog):

@@ -3,7 +3,7 @@
 
 from datetime import timedelta, datetime
 
-from commissar.core.log import LOGGER
+from commissar import LOGGER
 from commissar.core.oauth import AccessInfo, TokenStatus
 
 

@@ -10,7 +10,7 @@ from commissar.bot.response import bot_response, bot_response_multi
 from commissar.core.data import ServerRule
 from commissar.core.data import server_rule_repo
 from commissar.core.esi.esi import ESI
-from commissar.core.log import LOGGER
+from commissar import LOGGER
 
 
 class RulesCog(commands.Cog, name="Rules"):

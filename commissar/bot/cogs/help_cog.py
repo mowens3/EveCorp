@@ -5,7 +5,7 @@ from nextcord.ext import commands
 from commissar.bot.exception import BotException
 from commissar.bot.localizations import get_localized, HELP_ADMIN, SOMETHING_WENT_WRONG
 from commissar.bot.response import bot_response
-from commissar.core.log import LOGGER
+from commissar import LOGGER
 
 
 class HelpCog(commands.Cog, name="Help"):

@@ -6,7 +6,7 @@ from commissar.bot.exception import BotException
 from commissar.bot.localizations import *
 from commissar.bot.response import bot_response, bot_response_multi
 from commissar.core.data import user_data_repo
-from commissar.core.log import LOGGER
+from commissar import LOGGER
 
 
 class ReportsCog(commands.Cog):

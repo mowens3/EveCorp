@@ -7,13 +7,9 @@ from commissar.bot.cogs.help_cog import HelpCog
 from commissar.bot.cogs.public_cog import PublicCog
 from commissar.bot.cogs.reports_cog import ReportsCog
 from commissar.bot.cogs.rules_cog import RulesCog
-from commissar.core import SingletonMeta
-from commissar.core.config import ConfigLoader
-from commissar.core.log import LOGGER
-
-
-class ReportCog:
-    pass
+from commissar import SingletonMeta
+from commissar import ConfigLoader
+from commissar import LOGGER
 
 
 class CommissarBot(commands.Bot, metaclass=SingletonMeta):

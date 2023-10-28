@@ -3,11 +3,11 @@
 from flask import Flask, request, render_template
 from httpx import HTTPError
 
-from commissar.core.config import ConfigLoader
+from commissar import ConfigLoader
 from commissar.core.data import Character, UserData, character_repo
 from commissar.core.data import auth_attempt_repo, server_rule_repo, user_data_repo
 from commissar.core.esi.esi import ESI
-from commissar.core.log import LOGGER
+from commissar import LOGGER
 from commissar.core.oauth.helpers import validate
 from commissar.core.oauth.oauth_service import OAuthService
 from commissar.app import APP_NAME, ErrorWithCode

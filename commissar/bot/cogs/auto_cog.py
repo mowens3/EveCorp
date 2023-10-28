@@ -9,7 +9,7 @@ from commissar.bot import APP_NAME
 from commissar.bot.localizations import get_localized, ROLE_GRANTED, ROLE_REVOKED
 from commissar.core.data import auth_attempt_repo, character_repo, user_data_repo, server_rule_repo
 from commissar.core.esi.esi import ESI
-from commissar.core.log import LOGGER
+from commissar import LOGGER
 
 
 class AutoCog(commands.Cog):

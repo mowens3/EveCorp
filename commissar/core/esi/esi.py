@@ -4,11 +4,11 @@ import aiometer
 from async_lru import alru_cache
 import httpx
 
-from commissar.core import SingletonMeta
+from commissar import SingletonMeta
 from commissar.core.esi.http_client import CustomHTTPClient
 from tenacity import retry, stop_after_attempt, wait_fixed, retry_if_exception
 
-from commissar.core.log import LOGGER
+from commissar import LOGGER
 
 
 class RetryStrategy(retry_if_exception):

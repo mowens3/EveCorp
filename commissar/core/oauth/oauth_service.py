@@ -1,9 +1,10 @@
 import uuid
+
 import httpx
 
-from commissar.core import SingletonMeta
-from commissar.core.config import ConfigLoader
-from commissar.core.log import LOGGER
+from commissar import ConfigLoader
+from commissar import LOGGER
+from commissar import SingletonMeta
 from commissar.core.oauth import AccessInfo, AuthorizationInfo, TokenStatus
 from commissar.core.oauth import helpers
 from commissar.core.oauth.access_info import parse_token_response, check_access_info

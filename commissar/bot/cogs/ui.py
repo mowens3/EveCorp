@@ -3,7 +3,7 @@ from nextcord import ButtonStyle
 
 from commissar.bot.localizations import get_localized, USER_CHARACTER_REMOVED, SOMETHING_WENT_WRONG, RULE_REMOVED
 from commissar.core.data import character_repo, Character, ServerRule, server_rule_repo
-from commissar.core.log import LOGGER
+from commissar import LOGGER
 
 
 class RegisterMessage(nextcord.ui.View):

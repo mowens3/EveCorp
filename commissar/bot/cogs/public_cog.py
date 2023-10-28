@@ -10,7 +10,7 @@ from commissar.bot.localizations import *
 from commissar.bot.response import bot_response, bot_response_multi
 from commissar.core.data import AuthAttempt, AUTH_ATTEMPT_TTL_MINUTES, character_repo, Character
 from commissar.core.data import auth_attempt_repo, user_data_repo
-from commissar.core.log import LOGGER
+from commissar import LOGGER
 from commissar.core.oauth.oauth_service import OAuthService
 
 

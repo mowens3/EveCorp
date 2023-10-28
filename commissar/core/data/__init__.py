@@ -6,7 +6,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import relationship, DeclarativeBase
 from sqlalchemy.orm import sessionmaker
 
-from commissar.core.config import ConfigLoader
+from commissar import ConfigLoader
 
 cl = ConfigLoader()
 url = cl.config['postgresql']['url']
