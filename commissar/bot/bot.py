@@ -3,24 +3,32 @@ from nextcord.ext import commands
 
 from commissar.bot.cogs.admin_cog import AdminCog
 from commissar.bot.cogs.auto_cog import AutoCog
+from commissar.bot.cogs.help_cog import HelpCog
 from commissar.bot.cogs.public_cog import PublicCog
+from commissar.bot.cogs.reports_cog import ReportsCog
 from commissar.bot.cogs.rules_cog import RulesCog
 from commissar.core import SingletonMeta
 from commissar.core.config import ConfigLoader
 from commissar.core.log import LOGGER
 
 
+class ReportCog:
+    pass
+
+
 class CommissarBot(commands.Bot, metaclass=SingletonMeta):
-    def __init__(self, *args, **kwargs):
+    def __init__(self):
+        super().__init__()
         intents = nextcord.Intents.default()
         intents.members = True
         intents.message_content = True
-        super().__init__(*args, **kwargs, command_prefix='$', intents=intents)
+        self.command_prefix = '$'
         self.add_cog(AdminCog(self))
         self.add_cog(RulesCog(self))
         self.add_cog(PublicCog(self))
+        self.add_cog(ReportsCog(self))
         self.add_cog(AutoCog(self))
-        self.guild_ids = None
+        self.add_cog(HelpCog(self))
 
     async def setup_hook(self) -> None:
         pass
@@ -33,7 +41,6 @@ class CommissarBot(commands.Bot, metaclass=SingletonMeta):
             LOGGER.info(f"{i}: {g.name} (Server ID: {g.id})")
             await self.sync_application_commands(guild_id=g.id)
             i += 1
-        self.guild_ids = [g.id for g in self.guilds]
 
 
 def start() -> None:

@@ -19,16 +19,22 @@ class AdminCog(commands.Cog):
     def __init__(self, _bot: commands.Bot):
         self._bot = _bot
 
-    @commands.guild_only()
     @nextcord.slash_command(
-        name="register_member",
+        name="members",
+        dm_permission=False,
+        default_member_permissions=Permissions(administrator=True)
+    )
+    async def members(self, interaction: nextcord.Interaction):
+        pass
+
+    @members.subcommand(
+        name="register",
         description="Register server member",
         description_localizations={
             Locale.ru: "Зарегистрировать пользователя",
-        },
-        default_member_permissions=Permissions(administrator=True)
+        }
     )
-    async def register_member(
+    async def members_register(
             self,
             interaction: nextcord.Interaction,
             member: nextcord.Member = SlashOption(
@@ -86,16 +92,14 @@ class AdminCog(commands.Cog):
             LOGGER.error(e, exc_info=True)
             await bot_response(interaction, get_localized(SOMETHING_WENT_WRONG, loc))
 
-    @commands.guild_only()
-    @nextcord.slash_command(
-        name="member_info",
+    @members.subcommand(
+        name="info",
         description="Show member info",
         description_localizations={
             Locale.ru: "Показать информацию о пользователе",
-        },
-        default_member_permissions=Permissions(administrator=True)
+        }
     )
-    async def member_info(
+    async def members_info(
             self,
             interaction: nextcord.Interaction,
             member: nextcord.Member = SlashOption(
@@ -127,16 +131,14 @@ class AdminCog(commands.Cog):
             LOGGER.error(e, exc_info=True)
             await bot_response(interaction, get_localized(SOMETHING_WENT_WRONG, loc))
 
-    @commands.guild_only()
-    @nextcord.slash_command(
+    @members.subcommand(
         name="who",
         description="Perform search for registered characters using part of character name",
         description_localizations={
             Locale.ru: "Выполнить поиск зарегистрированных персонажей, используя часть имени персонажа",
-        },
-        default_member_permissions=Permissions(administrator=True)
+        }
     )
-    async def who(
+    async def members_who(
             self,
             interaction: nextcord.Interaction,
             character_name: str = SlashOption(
@@ -173,13 +175,13 @@ class AdminCog(commands.Cog):
             LOGGER.error(e, exc_info=True)
             await bot_response(interaction, get_localized(SOMETHING_WENT_WRONG, loc))
 
-    @commands.guild_only()
     @nextcord.slash_command(
         name="stats",
         description="Show stats",
         description_localizations={
             Locale.ru: "Показать статистику",
         },
+        dm_permission=False,
         default_member_permissions=Permissions(administrator=True)
     )
     async def stats(self, interaction: nextcord.Interaction):
@@ -205,14 +207,12 @@ class AdminCog(commands.Cog):
             LOGGER.error(e, exc_info=True)
             await bot_response(interaction, get_localized(SOMETHING_WENT_WRONG, loc))
 
-    @commands.guild_only()
-    @nextcord.slash_command(
+    @stats.subcommand(
         name="unregistered",
         description="Show unregistered users",
         description_localizations={
             Locale.ru: "Показать незарегистрированных пользователей",
-        },
-        default_member_permissions=Permissions(administrator=True)
+        }
     )
     async def unregistered(self, interaction: nextcord.Interaction):
         loc = interaction.locale
@@ -234,14 +234,12 @@ class AdminCog(commands.Cog):
             LOGGER.error(e, exc_info=True)
             await bot_response(interaction, get_localized(SOMETHING_WENT_WRONG, loc))
 
-    @commands.guild_only()
-    @nextcord.slash_command(
+    @stats.subcommand(
         name="registered",
         description="Show registered users",
         description_localizations={
             Locale.ru: "Показать зарегистрированных пользователей",
-        },
-        default_member_permissions=Permissions(administrator=True)
+        }
     )
     async def registered(self, interaction: nextcord.Interaction):
         loc = interaction.locale
@@ -255,14 +253,12 @@ class AdminCog(commands.Cog):
             messages.append(get_localized(REGISTERED_USERS_HEADER, loc))
             for u in users:
                 member = interaction.guild.get_member(u.discord_user_id)
-                roles = []
-                for r in member.roles:
-                    # except default permissions
-                    if r.name != '@everyone':
-                        roles.append(r.mention)
-                messages.append("- {} ({})".format(member.mention, ", ".join(roles)))
-                for c in u.characters:
-                    messages.append("  - {} `ID: {}`".format(c.character_name, c.character_id))
+                if member is not None:
+                    roles = [r.mention for r in member.roles if r.name != '@everyone']
+                    messages.append("- {} ({})".format(member.mention, ", ".join(roles)))
+                    if u.characters is not None:
+                        for c in u.characters:
+                            messages.append("  - {} `ID: {}`".format(c.character_name, c.character_id))
             # send response with all messages
             await bot_response_multi(interaction, messages)
         except BotException as e:

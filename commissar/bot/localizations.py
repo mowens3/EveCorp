@@ -53,6 +53,11 @@ RULE_UPDATED = {
     Locale.ru.__str__(): "Правило обновлено"
 }
 
+PICK_RULE = {
+    Locale.en_US.__str__(): "Pick rule:",
+    Locale.ru.__str__(): "Выберите правило:"
+}
+
 RULE_EXISTS = {
     Locale.en_US.__str__(): "Rule already exists",
     Locale.ru.__str__(): "Правило уже существует"
@@ -64,8 +69,8 @@ RULE_NOT_EXISTS = {
 }
 
 RULE_REMOVED = {
-    Locale.en_US.__str__(): "Rule removed",
-    Locale.ru.__str__(): "Правило удалено"
+    Locale.en_US.__str__(): "Rule removed.",
+    Locale.ru.__str__(): "Правило удалено."
 }
 
 RULES_INFO_HEADER = {
@@ -174,6 +179,16 @@ UNREGISTERED_USERS_HEADER = {
     Locale.ru.__str__(): "Незарегистрированные пользователи:"
 }
 
+USER_CHARACTERS_NOT_FOUND = {
+    Locale.en_US.__str__(): "EVE Online Characters not found.",
+    Locale.ru.__str__(): "Персонажи EVE Online не найдены."
+}
+
+PICK_USER_CHARACTER = {
+    Locale.en_US.__str__(): "Pick character:",
+    Locale.ru.__str__(): "Выбери персонажа:"
+}
+
 CHARACTER_NOT_FOUND = {
     Locale.en_US.__str__(): "EVE Online Character with ID `{}` not found.",
     Locale.ru.__str__(): "Персонаж EVE Online с ID `{}` не найден."
@@ -219,4 +234,22 @@ QUERY_STRING_TOO_SHORT = {
 QUERY_CHARACTERS_NOT_FOUND = {
     Locale.en_US.__str__(): "EVE Online Characters not found.",
     Locale.ru.__str__(): "Персонажи EVE Online не найдены."
+}
+
+HELP_ADMIN = {
+    Locale.en_US.__str__(): """
+    # Help (Admin) #
+    """,
+    Locale.ru.__str__(): """
+    # Help (Admin) #
+    """,
+}
+
+HELP = {
+    Locale.en_US.__str__():  """
+    # Help #
+    """,
+    Locale.ru.__str__():  """
+    # Help #
+    """
 }

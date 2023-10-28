@@ -165,6 +165,8 @@ class AutoCog(commands.Cog):
                     locale = Locale[rule.locale]
                     for u in user_data_repo.find_by_server_id(guild.id):
                         member = guild.get_member(u.discord_user_id)
+                        if member is None:
+                            break
                         found = False
                         for c in u.characters:
                             if c.corporation_id == rule.corporation_id:

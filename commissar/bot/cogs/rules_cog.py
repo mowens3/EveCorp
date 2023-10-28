@@ -1,7 +1,8 @@
 import nextcord
-from nextcord import Permissions, SlashOption, Locale
+from nextcord import Permissions, SlashOption
 from nextcord.ext import commands
 
+from commissar.bot.cogs.ui import RuleDropdownView
 from commissar.bot.exception import BotException
 from commissar.bot.helpers import *
 from commissar.bot.localizations import *
@@ -12,22 +13,28 @@ from commissar.core.esi.esi import ESI
 from commissar.core.log import LOGGER
 
 
-class RulesCog(commands.Cog):
+class RulesCog(commands.Cog, name="Rules"):
 
     def __init__(self, _bot: commands.Bot):
         self._bot = _bot
         self.guild_ids = [g.id for g in self._bot.guilds]
 
-    @commands.guild_only()
     @nextcord.slash_command(
-        name="add_rule",
+        name="rules",
+        dm_permission=False,
+        default_member_permissions=Permissions(administrator=True)
+    )
+    async def rules(self, interaction: nextcord.Interaction):
+        pass
+
+    @rules.subcommand(
+        name="add",
         description="Add rule for automated role grants on Discord server",
         description_localizations={
             Locale.ru: "Добавить правило автоматического назначения ролей на сервере Discord"
-        },
-        default_member_permissions=Permissions(administrator=True)
+        }
     )
-    async def add_rule(
+    async def rules_add(
             self,
             interaction: nextcord.Interaction,
             corporation_id: int = SlashOption(
@@ -53,7 +60,7 @@ class RulesCog(commands.Cog):
                 description_localizations={
                     Locale.ru: "Язык для уведомлений в канале"
                 },
-                default=Locale.en_US.name
+                choices={"en": "en_US", "ru": "ru"}
             )
     ):
         loc = interaction.locale
@@ -102,50 +109,40 @@ class RulesCog(commands.Cog):
             LOGGER.error(e, exc_info=True)
             await bot_response(interaction, get_localized(SOMETHING_WENT_WRONG, loc))
 
-    @commands.guild_only()
-    @nextcord.slash_command(
-        name="remove_rule",
-        description="Remove rule",
+    @rules.subcommand(
+        name="remove",
+        description="Initiate rule removal dialog",
         description_localizations={
-            Locale.ru: "Удалить правило"
-        },
-        default_member_permissions=Permissions(administrator=True)
+            Locale.ru: "Инициировать удаления правила"
+        }
     )
-    async def delete_rule(
+    async def rules_remove(
             self,
-            interaction: nextcord.Interaction,
-            role: nextcord.Role = SlashOption(
-                description='Discord server role',
-                description_localizations={
-                    Locale.ru: "Роль на сервере Discord"
-                }
-            )
+            interaction: nextcord.Interaction
     ):
         loc = interaction.locale
         try:
             if interaction.guild is None:
                 raise BotException(get_localized(GUILD_ONLY, loc))
-            r = server_rule_repo.find_by_server_id_and_role_id(interaction.guild.id, role.id)
-            if r is None:
-                raise BotException(get_localized(RULE_NOT_EXISTS, loc))
-            server_rule_repo.remove(r)
-            await bot_response(interaction, get_localized(RULE_REMOVED, loc))
+            rules = server_rule_repo.find_by_discord_server_id(interaction.guild.id)
+            if rules is None or len(rules) == 0:
+                raise BotException(get_localized(SERVER_RULES_NOT_FOUND, loc).format(interaction.guild.name))
+            await interaction.send(
+                get_localized(PICK_RULE, loc), view=RuleDropdownView(rules), ephemeral=True)
         except BotException as e:
             await bot_response(interaction, e.__str__())
         except BaseException as e:
             LOGGER.error(e, exc_info=True)
             await bot_response(interaction, get_localized(SOMETHING_WENT_WRONG, loc))
 
-    @commands.guild_only()
-    @nextcord.slash_command(
-        name="get_rules",
-        description="Prints current rules",
+    @rules.subcommand(
+        name="show",
+        description="Shows current rules for automated role grants",
         description_localizations={
-            Locale.ru: "Выводит текущие правила для сервера",
-        },
-        default_member_permissions=Permissions(administrator=True)
+            Locale.ru: "Выводит текущие правила автоматического назначения ролей",
+        }
     )
-    async def get_rules(self, interaction: nextcord.Interaction):
+    async def rules_show(self, interaction: nextcord.Interaction):
         loc = interaction.locale
         messages = []
         try:
