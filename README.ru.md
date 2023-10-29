@@ -1,5 +1,8 @@
 # EVE CommissarBo
 
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/AnaxRho/EVECommissar/blob/main/README.md)
+[![ru](https://img.shields.io/badge/lang-es-yellow.svg)](https://github.com/AnaxRho/EVECommissar/blob/main/README.ru.md)
+
 EVE Commissar — это Discord бот и веб приложение с открытым исходным кодом для управления ролями на сервере Discord на основании нахождения персонажей пользователя в корпорации EVE Online.
 
 [Bot invite link](https://discord.com/api/oauth2/authorize?client_id=1157665492564197437&permissions=268437504&scope=bot)
