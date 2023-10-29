@@ -39,13 +39,6 @@ Command takes 2 arguments:
 After creating rule EVE Commissar can perform automated tasks for granting \ revoking roles.\
 Use command `/rules show` to see list of rules.\
 Use command `/rules remove` to remove rule.
-
-### Automated tasks
-
-* EVE Commissar updated registered characters info every 4 hours.
-* EVE Commissar check if some members is missing role or has role, which he should not have every 5 minutes.
-  * For granting role user should have at least one registered character in specified corporation.
-  * For revoking role user should not have registered character in specified corporation.
   
 ### Managing users
 
@@ -58,6 +51,13 @@ Use command `/rules remove` to remove rule.
 * `/reports stats` — shows registration statistics.
 * `/reports unregistered` — show users which didn't register at least one character.
 * `/reports registered` — show registered users and characters list.
+
+### Automated tasks
+
+* EVE Commissar updated registered characters info every 4 hours.
+* EVE Commissar check if some members is missing role or has role, which he should not have every 5 minutes.
+  * For granting role user should have at least one registered character in specified corporation.
+  * For revoking role user should not have registered character in specified corporation.
 
 ### Security concerns
 
