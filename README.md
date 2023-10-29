@@ -25,10 +25,10 @@ EVE Commissar is open source Discord bot and web app for managing Discord server
 After that you can add rules using `/rules add` command.
 
 Command takes 4 arguments:
-* corporation_id — EVE Online corporation ID;
-* role — role, which bot should be granting;
-* channel — text channel for notifications; 
-* locale — locale (language) for bot notifications.
+* `corporation_id` — EVE Online corporation ID;
+* `role` — role, which bot should be granting. Hit `@` in field to see list of roles;
+* `channel` — text channel for notifications. Hit `#` in field to see list of channels; 
+* `locale` — locale (language) for bot notifications. As of today, `ru`, `en` (default) options available. 
     
 After creating rule EVE Commissar can perform automated tasks for granting \ revoking roles.\
 Use command `/rules show` to see list of rules.\
@@ -43,8 +43,9 @@ Use command `/rules remove` to remove rule.
   
 ### Managing users
 
-You can use command `/member info` to check user registered characters.
-You can use `/member register` to register user character yourself, provided you know character ID.
+* `/member info` — check user registered characters. Hit `@` to see a list of users.
+* `/member register` — register user character yourself, provided you know character ID.
+* `/member who` — search for character by name of partial name (minimum 4 letters) in registered characters.
 
 ### Reports
 
