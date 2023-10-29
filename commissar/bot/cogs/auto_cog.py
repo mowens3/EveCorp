@@ -1,7 +1,8 @@
-from datetime import datetime
+from datetime import datetime, timezone
 
 import aiocron
 import nextcord
+from croniter import croniter
 from nextcord import Locale
 from nextcord.ext import commands
 
@@ -9,7 +10,7 @@ from commissar.bot import APP_NAME
 from commissar.bot.localizations import get_localized, ROLE_GRANTED, ROLE_REVOKED
 from commissar.core.data import auth_attempt_repo, character_repo, user_data_repo, server_rule_repo, server_repo
 from commissar.core.esi.esi import ESI
-from commissar import LOGGER, ConfigLoader
+from commissar import LOGGER, ConfigLoader, DTF
 
 cfg = ConfigLoader().config
 CRON_EXPIRE_AUTH = cfg['auto']['expire_auth']
@@ -19,12 +20,42 @@ CRON_UPDATES = cfg['auto']['updates']
 
 class AutoCog(commands.Cog):
 
+    @staticmethod
+    def describe_cron_expr(alias: str, expr: str):
+        _prev = datetime.fromtimestamp(croniter(expr).get_prev()).strftime(DTF)
+        _next = datetime.fromtimestamp(croniter(expr).get_next()).strftime(DTF)
+        LOGGER.info("{}:\t'{}'\t\tprev: {}\tnext: {}".format(alias, expr, _prev, _next))
+
+    @staticmethod
+    def cron_next(expr: str):
+        return datetime.fromtimestamp(croniter(expr).get_next()).strftime(DTF)
+
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        LOGGER.info("CRON_EXPIRE_AUTH: {}".format(CRON_EXPIRE_AUTH))
-        LOGGER.info("CRON_GRANTS: {}".format(CRON_GRANTS))
-        LOGGER.info("CRON_UPDATES: {}".format(CRON_UPDATES))
-        CronJobs(self)
+        self.describe_cron_expr('     CRON_GRANTS', CRON_GRANTS)
+        self.describe_cron_expr('    CRON_UPDATES', CRON_UPDATES)
+        self.describe_cron_expr('CRON_EXPIRE_AUTH', CRON_EXPIRE_AUTH)
+
+        @aiocron.crontab(CRON_EXPIRE_AUTH, start=True)
+        async def expire_auth_task():
+            try:
+                await self.delete_expired_auth_attempts()
+            except Exception as e:
+                LOGGER.error(e, exc_info=True)
+
+        @aiocron.crontab(CRON_UPDATES, start=True)
+        async def updates_task():
+            try:
+                await self.fetch_and_update_characters_data()
+            except Exception as e:
+                LOGGER.error(e, exc_info=True)
+
+        @aiocron.crontab(CRON_GRANTS, start=True)
+        async def grants_task():
+            try:
+                await self.grant_revoke_roles()
+            except Exception as e:
+                LOGGER.error(e, exc_info=True)
 
     @staticmethod
     async def delete_expired_auth_attempts():
@@ -175,29 +206,4 @@ class AutoCog(commands.Cog):
             )
         elapsed = datetime.now() - start
         LOGGER.info("Elapsed time: {}".format(elapsed))
-
-
-class CronJobs:
-    def __init__(self, auto_cog: AutoCog) -> None:
-
-        @aiocron.crontab(CRON_EXPIRE_AUTH)
-        async def expire_auth_task():
-            try:
-                await auto_cog.delete_expired_auth_attempts()
-            except Exception as e:
-                LOGGER.error(e, exc_info=True)
-
-        @aiocron.crontab(CRON_UPDATES)
-        async def updates_task():
-            try:
-                await auto_cog.fetch_and_update_characters_data()
-            except Exception as e:
-                LOGGER.error(e, exc_info=True)
-
-        @aiocron.crontab(CRON_GRANTS)
-        async def grants_task():
-            try:
-                await auto_cog.grant_revoke_roles()
-            except Exception as e:
-                LOGGER.error(e, exc_info=True)
 
