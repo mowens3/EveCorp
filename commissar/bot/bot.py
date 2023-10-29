@@ -3,7 +3,6 @@ from nextcord.ext import commands
 
 from commissar.bot.cogs.admin_cog import AdminCog
 from commissar.bot.cogs.auto_cog import AutoCog
-from commissar.bot.cogs.help_cog import HelpCog
 from commissar.bot.cogs.public_cog import PublicCog
 from commissar.bot.cogs.reports_cog import ReportsCog
 from commissar.bot.cogs.rules_cog import RulesCog
@@ -25,7 +24,6 @@ class CommissarBot(commands.Bot, metaclass=SingletonMeta):
         self.add_cog(PublicCog(self))
         self.add_cog(ReportsCog(self))
         self.add_cog(AutoCog(self))
-        self.add_cog(HelpCog(self))
 
     async def setup_hook(self) -> None:
         pass
