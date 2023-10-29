@@ -1,7 +1,7 @@
 # EVE Commissar
 
 [![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/AnaxRho/EVECommissar/blob/main/README.md)
-[![ru](https://img.shields.io/badge/lang-es-yellow.svg)](https://github.com/AnaxRho/EVECommissar/blob/main/README.ru.md)
+[![ru](https://img.shields.io/badge/lang-ru-yellow.svg)](https://github.com/AnaxRho/EVECommissar/blob/main/README.ru.md)
 
 EVE Commissar is open source Discord bot and web app for managing Discord server roles based on corporation membership in EVE Online.
 
