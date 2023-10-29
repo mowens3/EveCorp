@@ -24,7 +24,7 @@ class AutoCog(commands.Cog):
         LOGGER.info("CRON_EXPIRE_AUTH: {}".format(CRON_EXPIRE_AUTH))
         LOGGER.info("CRON_GRANTS: {}".format(CRON_GRANTS))
         LOGGER.info("CRON_UPDATES: {}".format(CRON_UPDATES))
-        cron_jobs = CronJobs(self)
+        CronJobs(self)
 
     @staticmethod
     async def delete_expired_auth_attempts():
@@ -180,21 +180,21 @@ class AutoCog(commands.Cog):
 class CronJobs:
     def __init__(self, auto_cog: AutoCog) -> None:
 
-        @aiocron.crontab(CRON_EXPIRE_AUTH, start=False)
+        @aiocron.crontab(CRON_EXPIRE_AUTH)
         async def expire_auth_task():
             try:
                 await auto_cog.delete_expired_auth_attempts()
             except Exception as e:
                 LOGGER.error(e, exc_info=True)
 
-        @aiocron.crontab(CRON_UPDATES, start=False)
+        @aiocron.crontab(CRON_UPDATES)
         async def updates_task():
             try:
                 await auto_cog.fetch_and_update_characters_data()
             except Exception as e:
                 LOGGER.error(e, exc_info=True)
 
-        @aiocron.crontab(CRON_GRANTS, start=False)
+        @aiocron.crontab(CRON_GRANTS)
         async def grants_task():
             try:
                 await auto_cog.grant_revoke_roles()
