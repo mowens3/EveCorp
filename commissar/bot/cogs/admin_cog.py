@@ -6,7 +6,7 @@ from nextcord.ext import commands
 from commissar.bot import *
 from commissar.bot.localizations import *
 from commissar.bot.response import bot_response, bot_response_multi
-from commissar.core.data import character_repo, Character, UserData
+from commissar.core.data import character_repo, Character, UserData, server_repo, Server
 from commissar.core.data import user_data_repo
 from commissar.core.esi.esi import ESI
 from commissar import LOGGER
@@ -17,6 +17,63 @@ class AdminCog(commands.Cog):
 
     def __init__(self, _bot: commands.Bot):
         self._bot = _bot
+
+    @nextcord.slash_command(
+        name="setup",
+        description="Setup server",
+        description_localizations={
+            Locale.ru: "Настройка сервера",
+        },
+        dm_permission=False,
+        default_member_permissions=Permissions(administrator=True)
+    )
+    async def setup(
+        self,
+        interaction: nextcord.Interaction,
+        channel: nextcord.TextChannel = SlashOption(
+            description='Discord server channel for notifications',
+            description_localizations={
+                Locale.ru: "Канал на сервере Discord для уведомлений"
+            }
+        ),
+        locale: str = SlashOption(
+            description='Locale for channel notifications',
+            description_localizations={
+                Locale.ru: "Язык для уведомлений в канале"
+            },
+            choices={"en": "en_US", "ru": "ru"}
+        )
+    ):
+        loc = interaction.locale
+        try:
+            if interaction.guild is None:
+                raise BotException(get_localized(GUILD_ONLY, loc))
+            _locale = Locale[locale].name
+            server = server_repo.find_by_discord_server_id(interaction.guild.id)
+            if server is not None:
+                server.discord_channel_id = channel.id
+                server.discord_channel_name = channel.name
+                server.locale = locale
+                server_repo.save(server)
+                await bot_response(interaction, get_localized(SERVER_SETTINGS_UPDATED, loc))
+            else:
+                r = Server(
+                    discord_server_id=interaction.guild.id,
+                    discord_server_name=interaction.guild.name,
+                    discord_channel_id=channel.id,
+                    discord_channel_name=channel.name,
+                    locale=_locale
+                )
+                server_repo.save(r)
+                await bot_response(interaction, get_localized(SERVER_SETTINGS_CREATED, loc).format(
+                        interaction.guild.name, channel.mention, _locale
+                    )
+                )
+        except BotException as e:
+            await bot_response(interaction, e.__str__())
+        except BaseException as e:
+            LOGGER.error(e, exc_info=True)
+            await bot_response(interaction, get_localized(SOMETHING_WENT_WRONG, loc))
 
     @nextcord.slash_command(
         name="members",

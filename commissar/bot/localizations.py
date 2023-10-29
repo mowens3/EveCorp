@@ -22,7 +22,29 @@ GUILD_ONLY = {
     Locale.ru.__str__(): "Эта команда должна выполняться только на канале сервера."
 }
 
-"""Rules related messages
+"""Server related messages
+"""
+
+SERVER_SETTINGS_CREATED = {
+    Locale.en_US.__str__(): "Server settings for ***{}***:\n"
+                            "* Notification channel: {}\n"
+                            "* Notification language: {}",
+    Locale.ru.__str__(): "Настройки сервера для ***{}***:\n"
+                         "* Канал для уведомлений: {}\n"
+                         "* Язык для уведомлений: {}"
+}
+
+SERVER_SETTINGS_UPDATED = {
+    Locale.en_US.__str__(): "Server settings updated",
+    Locale.ru.__str__(): "Настройки сервера обновлены"
+}
+
+SERVER_SETTINGS_NOT_FOUND = {
+    Locale.en_US.__str__(): "Server settings not found",
+    Locale.ru.__str__(): "Настройки для сервера не найдены"
+}
+
+"""Server Rules related messages
 """
 
 SERVER_RULES_NOT_FOUND = {
@@ -33,57 +55,49 @@ SERVER_RULES_NOT_FOUND = {
 SERVER_RULE_CREATED = {
     Locale.en_US.__str__(): "New rule for ***{}***:\n"
                             "* Server role: {}\n"
-                            "* EVE Online Corporation: [{} [{}]]({})\n"
-                            "* Notification channel: {}\n"
-                            "* Notification language: {}",
+                            "* EVE Online Corporation: [{} [{}]]({})",
     Locale.ru.__str__(): "Новое правило для ***{}***:\n"
                          "* Роль на сервере: {}\n"
-                         "* Корпорация EVE Online: [{} [{}]]({})\n"
-                         "* Канал для уведомлений: {}\n"
-                         "* Язык для уведомлений: {}"
+                         "* Корпорация EVE Online: [{} [{}]]({})"
 }
 
-RULE_UPDATED = {
-    Locale.en_US.__str__(): "Rule updated",
-    Locale.ru.__str__(): "Правило обновлено"
+SERVER_RULE_UPDATED = {
+    Locale.en_US.__str__(): "Rule updated.",
+    Locale.ru.__str__(): "Правило обновлено."
 }
 
-PICK_RULE = {
+SERVER_RULE_PICK = {
     Locale.en_US.__str__(): "Pick rule:",
     Locale.ru.__str__(): "Выберите правило:"
 }
 
-RULE_EXISTS = {
-    Locale.en_US.__str__(): "Rule already exists",
-    Locale.ru.__str__(): "Правило уже существует"
+SERVER_RULE_EXISTS = {
+    Locale.en_US.__str__(): "Rule already exists.",
+    Locale.ru.__str__(): "Правило уже существует."
 }
 
-RULE_NOT_EXISTS = {
-    Locale.en_US.__str__(): "Rule doesn't exists",
-    Locale.ru.__str__(): "Правило не существует"
+SERVER_RULE_NOT_EXISTS = {
+    Locale.en_US.__str__(): "Rule doesn't exists.",
+    Locale.ru.__str__(): "Правило не существует."
 }
 
-RULE_REMOVED = {
+SERVER_RULE_REMOVED = {
     Locale.en_US.__str__(): "Rule removed.",
     Locale.ru.__str__(): "Правило удалено."
 }
 
-RULES_INFO_HEADER = {
+SERVER_RULES_INFO_HEADER = {
     Locale.en_US.__str__(): "Rules for ***{}***:",
     Locale.ru.__str__(): "Правила для ***{}***:"
 }
 
-RULES_INFO_ROW = {
+SERVER_RULES_INFO_ROW = {
     Locale.en_US.__str__(): "* Rule {}:\n"
                             "  * Server role: {}\n"
-                            "  * EVE Online Corporation: [{} [{}]]({})\n"
-                            "  * Notification channel: {}\n"
-                            "  * Notification language: {}",
+                            "  * EVE Online Corporation: [{} [{}]]({})",
     Locale.ru.__str__(): "* Rule {}:\n"
                          "  * Роль на сервере: {}\n"
-                         "  * Корпорация EVE Online: [{} [{}]]({})\n"
-                         "  * Канал для уведомлений: {}\n"
-                         "  * Язык для уведомлений: {}"
+                         "  * Корпорация EVE Online: [{} [{}]]({})"
 }
 
 CORP_NOT_FOUND = {
@@ -102,8 +116,8 @@ CHANNEL_NOT_FOUND = {
 }
 
 MEMBER_NOT_FOUND = {
-    Locale.en_US.__str__(): "User '{}' not found",
-    Locale.ru.__str__(): "Пользователь '{}' не найден"
+    Locale.en_US.__str__(): "User '{}' not found.",
+    Locale.ru.__str__(): "Пользователь '{}' не найден."
 }
 
 MEMBER_INFO = {

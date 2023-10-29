@@ -7,7 +7,7 @@ from nextcord.ext import commands
 
 from commissar.bot import APP_NAME
 from commissar.bot.localizations import get_localized, ROLE_GRANTED, ROLE_REVOKED
-from commissar.core.data import auth_attempt_repo, character_repo, user_data_repo, server_rule_repo
+from commissar.core.data import auth_attempt_repo, character_repo, user_data_repo, server_rule_repo, server_repo
 from commissar.core.esi.esi import ESI
 from commissar import LOGGER, ConfigLoader
 
@@ -122,6 +122,9 @@ class AutoCog(commands.Cog):
         # only connected servers
         for guild in self.bot.guilds:
             LOGGER.info(guild.name)
+            server = server_repo.find_by_discord_server_id(guild.id)
+            if server is None:
+                break
             rules = server_rule_repo.find_by_discord_server_id(guild.id)
             if rules is None or len(rules) == 0:
                 LOGGER.debug('No rules')
@@ -131,15 +134,15 @@ class AutoCog(commands.Cog):
             failed = 0
             for rule in rules:
                 LOGGER.debug("Evaluating '{}' rule for role '{}'...".format(
-                    rule.discord_server_name, rule.discord_role_name
+                    server.discord_server_name, rule.discord_role_name
                 ))
                 role = guild.get_role(rule.discord_role_id)
                 # do nothing if role is invalid
                 if role is None:
                     LOGGER.debug('No role')
                     break
-                channel = guild.get_channel(rule.discord_channel_id)
-                locale = Locale[rule.locale]
+                channel = guild.get_channel(server.discord_channel_id)
+                locale = Locale[server.locale]
                 for u in user_data_repo.find_by_server_id(guild.id):
                     member = guild.get_member(u.discord_user_id)
                     if member is None:

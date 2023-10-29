@@ -8,7 +8,7 @@ from commissar.bot import BotException
 from commissar.bot import ZKILLBOARD_CHARACTER_URL_PATTERN
 from commissar.bot.localizations import *
 from commissar.bot.response import bot_response, bot_response_multi
-from commissar.core.data import AuthAttempt, AUTH_ATTEMPT_TTL_MINUTES
+from commissar.core.data import AuthAttempt, AUTH_ATTEMPT_TTL_MINUTES, server_repo
 from commissar.core.data import auth_attempt_repo, user_data_repo
 from commissar import LOGGER
 from commissar.core.oauth.oauth_service import OAuthService
@@ -39,6 +39,9 @@ class PublicCog(commands.Cog):
         try:
             if interaction.guild is None:
                 raise BotException(get_localized(GUILD_ONLY, loc))
+            server = server_repo.find_by_discord_server_id(interaction.guild.id)
+            if server is None:
+                raise BotException(get_localized(SERVER_SETTINGS_NOT_FOUND, loc))
             auth = OAuthService()
             info = auth.authorize()
             p = AuthAttempt(

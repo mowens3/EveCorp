@@ -17,18 +17,24 @@ EVE Commissar is open source Discord bot and web app for managing Discord server
 
 * Create and set up roles which EVE Commissar is supposed to grant members.
 * EVE Commissar should have his role on server higher than roles that it will grant \ revoking.
-* Server should have text channel that can be used for granting \ revoking roles notifications.
+* Create and setup text channel that can be used for granting \ revoking roles notifications.
 * You will need to know in-game corporation ID, which can be easily obtained from zkillboard or dotlan.
+
+### Setting up notifications
+
+Set up notifications using `/setup` command.
+
+Command takes 2 arguments:
+* `channel` — text channel for notifications. Hit `#` in field to see list of channels; 
+* `locale` — locale (language) for bot notifications. As of today, `ru`, `en` (default) options available. 
 
 ### Creating rules
 
-After that you can add rules using `/rules add` command.
+Add rules using `/rules add` command.
 
-Command takes 4 arguments:
+Command takes 2 arguments:
 * `corporation_id` — EVE Online corporation ID;
-* `role` — role, which bot should be granting. Hit `@` in field to see list of roles;
-* `channel` — text channel for notifications. Hit `#` in field to see list of channels; 
-* `locale` — locale (language) for bot notifications. As of today, `ru`, `en` (default) options available. 
+* `role` — role, which bot should be granting. Hit `@` in field to see list of roles.
     
 After creating rule EVE Commissar can perform automated tasks for granting \ revoking roles.\
 Use command `/rules show` to see list of rules.\
@@ -64,6 +70,6 @@ Refer to [sso_authorization_flow](`https://docs.esi.evetech.net/docs/sso/sso_aut
 
 ## User Guide
         
-* Start by running `/character register` command to register your first EVE Online character with bot.
+* Start by running `/character register` command to register your first EVE Online character with bot. After that follow instructions from direct message.
 * Command `/character info` could be used to show list of your registered character.
 * Command `/character remove` — for removal of registered character.    

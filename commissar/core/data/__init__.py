@@ -32,21 +32,34 @@ LOCALE_LEN = 5                  # Discord limit
 AUTH_ATTEMPT_TTL_MINUTES = 60
 
 
-class ServerRule(Base):
+class Server(Base):
     """Database entity to hold bot server specific data
+    """
+    discord_server_id = Column(BigInteger(), primary_key=True)
+    discord_server_name = Column(String(DISCORD_SERVER_NAME_LEN), nullable=False)
+    discord_channel_id = Column(BigInteger(), nullable=False)
+    discord_channel_name = Column(String(DISCORD_CHANNEL_NAME_LEN))
+    locale = Column(String(LOCALE_LEN), nullable=True)
+    created = Column(DateTime(), default=datetime.now)
+    updated = Column(DateTime(), default=None, onupdate=datetime.now)
+
+    __tablename__ = 'server'
+
+    def __repr__(self):
+        return "DiscordServer(id='{}')".format(self.discord_server_id)
+
+
+class ServerRule(Base):
+    """Database entity to hold bot server rules
     """
 
     id = Column(BigInteger(), primary_key=True)
-    discord_server_id = Column(BigInteger(), unique=True, nullable=False)
-    discord_server_name = Column(String(DISCORD_SERVER_NAME_LEN), nullable=False)
+    discord_server_id = Column(BigInteger(), ForeignKey('server.discord_server_id'), nullable=False)
     discord_role_id = Column(BigInteger(), nullable=False)
     discord_role_name = Column(String(DISCORD_ROLE_NAME_LEN))
     corporation_id = Column(BigInteger(), nullable=False)
     corporation_name = Column(String(CORP_NAME_LEN))
     corporation_ticker = Column(String(CORP_TICKER_LEN))
-    discord_channel_id = Column(BigInteger(), nullable=False)
-    discord_channel_name = Column(String(DISCORD_CHANNEL_NAME_LEN))
-    locale = Column(String(LOCALE_LEN), nullable=True)
     created = Column(DateTime(), default=datetime.now)
     updated = Column(DateTime(), default=None, onupdate=datetime.now)
 
@@ -64,7 +77,7 @@ class AuthAttempt(Base):
     """
 
     state = Column(String(OAUTH_STATE_LEN), primary_key=True)
-    discord_server_id = Column(BigInteger(), nullable=False)
+    discord_server_id = Column(BigInteger(), ForeignKey('server.discord_server_id'), nullable=False)
     discord_user_id = Column(BigInteger(), nullable=False)
     discord_user_name = Column(String(DISCORD_USER_NAME_LEN), nullable=False)
     code_verifier = Column(String(OATH_CODE_VERIFIER_LEN), nullable=False)
@@ -82,7 +95,7 @@ class UserData(Base):
     """
 
     id = Column(Integer(), primary_key=True)
-    discord_server_id = Column(BigInteger(), nullable=False)
+    discord_server_id = Column(BigInteger(), ForeignKey('server.discord_server_id'), nullable=False)
     discord_user_id = Column(BigInteger(), nullable=False)
     discord_user_name = Column(String(DISCORD_USER_NAME_LEN))
     created = Column(DateTime(), default=datetime.now)
@@ -104,7 +117,7 @@ class Character(Base):
     """
 
     id = Column(BigInteger(), primary_key=True)
-    discord_server_id = Column(BigInteger(), nullable=False)
+    discord_server_id = Column(BigInteger(), ForeignKey('server.discord_server_id'), nullable=False)
     user_data_id = Column(BigInteger(), ForeignKey('user_data.id'), nullable=False)
     character_id = Column(BigInteger(), nullable=False)
     character_name = Column(String(CHAR_NAME_LEN), nullable=False)

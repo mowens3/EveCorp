@@ -1,7 +1,7 @@
 import nextcord
 from nextcord import ButtonStyle
 
-from commissar.bot.localizations import get_localized, USER_CHARACTER_REMOVED, SOMETHING_WENT_WRONG, RULE_REMOVED
+from commissar.bot.localizations import get_localized, USER_CHARACTER_REMOVED, SOMETHING_WENT_WRONG, SERVER_RULE_REMOVED
 from commissar.core.data import character_repo, Character, ServerRule, server_rule_repo
 from commissar import LOGGER
 
@@ -73,7 +73,7 @@ class RuleDropdownView(nextcord.ui.View):
             rule_id = self.dropdown.selected
             r = server_rule_repo.find_by_id(rule_id)
             server_rule_repo.remove(r)
-            await interaction.response.send_message(get_localized(RULE_REMOVED, loc), ephemeral=True)
+            await interaction.response.send_message(get_localized(SERVER_RULE_REMOVED, loc), ephemeral=True)
         except Exception as e:
             LOGGER.error(e, exc_info=True)
             await interaction.response.send_message(get_localized(SOMETHING_WENT_WRONG, loc), ephemeral=True)
