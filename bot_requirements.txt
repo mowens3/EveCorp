@@ -10,6 +10,8 @@ async-lru~=2.0.4
 nextcord~=2.6.0
 # OAuth
 python-jose~=3.3.0
+# cron
+aiocron~=1.8
 # DB
 psycopg2-binary~=2.9.9
 SQLAlchemy~=2.0.22
