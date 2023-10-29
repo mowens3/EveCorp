@@ -1,6 +1,8 @@
 # EVE Commissar
 
-EVE Commissar is a open source Discord bot and web app for managing Discord server roles based on corporation membership in EVE Online.
+EVE Commissar is open source Discord bot and web app for managing Discord server roles based on corporation membership in EVE Online.
+
+[Bot invite link](https://discord.com/api/oauth2/authorize?client_id=1157665492564197437&permissions=268437504&scope=bot)
 
 ## Contents
 * [Administrator Guide](#administrator-guide)
@@ -39,28 +41,22 @@ Use command `/rules remove` to remove rule.
 ### Managing users
 
 You can use command `/member info` to check user registered characters.
-Also you can use `/member register` to register user character yourself, provided you know character ID.
+You can use `/member register` to register user character yourself, provided you know character ID.
 
 ### Reports
 
-`/reports stats` — shows registration statistics.
-`/reports unregistered` — show users which didn't register at least one character.
-`/reports registered` — show registered users and characters list.
-
-### Помощь
-
-`/help admin` — shows Administrator guide.
-
-`/reports unregistered` — shows User guide.
+* `/reports stats` — shows registration statistics.
+* `/reports unregistered` — show users which didn't register at least one character.
+* `/reports registered` — show registered users and characters list.
 
 ### Security concerns
 
-EVECommissar is open-source application.
-In character authorization process EVECommissar requests OAuth 2.0 authorization info from `login.eveonline.com` using only 'publicData' scope.\
-EVECommissar doesn't save user authorization info (access_token, refresh_token).\
-Access token is used once for verifying character ID.
+* EVECommissar is open-source application.
+* In character authorization process EVECommissar requests OAuth 2.0 authorization info from `login.eveonline.com` using only 'publicData' scope.
+* EVECommissar doesn't save user authorization info (access_token, refresh_token).
+* Access token is used once for verifying character ID.
 
-Refer to `https://docs.esi.evetech.net/docs/sso/sso_authorization_flow.html` for additional information about OAuth 2.0.
+Refer to [sso_authorization_flow](`https://docs.esi.evetech.net/docs/sso/sso_authorization_flow.html`) for additional information about OAuth 2.0.
 
 ## User Guide
         
