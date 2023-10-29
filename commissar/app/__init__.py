@@ -2,7 +2,6 @@ import logging.handlers
 import os
 import pathlib
 import sys
-from enum import StrEnum
 
 from commissar import core
 from commissar import ConfigLoader

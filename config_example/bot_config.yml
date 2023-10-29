@@ -1,0 +1,20 @@
+discord:
+  client_id: 1234567890
+  client_secret: bm90aGluZyB0byBzZWUgaGVyZQ
+  scopes:
+  - role_connections.write
+  - identify
+  token: bm90aGluZyB0byBzZWUgaGVyZQ
+postgresql:
+  url: postgresql://user:password@localhost:5432/commissar
+esi:
+  client_id: bm90aGluZyB0byBzZWUgaGVyZQ
+  client_secret: bm90aGluZyB0byBzZWUgaGVyZQ
+  scopes:
+  - publicData
+  callback_url: https://anax-rho.space/commissar/callback
+  callback_host: anax-rho.space
+auto:
+  expire_auth: '* 0/15 * * * *'
+  grants: '* 0/15 * * * *'
+  updates: '* * 0/4 * * *'
