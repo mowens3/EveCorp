@@ -1,60 +1,30 @@
-import asyncio
 from datetime import datetime
 
+import aiocron
 import nextcord
 from nextcord import Locale
-from nextcord.ext import commands, tasks
+from nextcord.ext import commands
 
 from commissar.bot import APP_NAME
 from commissar.bot.localizations import get_localized, ROLE_GRANTED, ROLE_REVOKED
 from commissar.core.data import auth_attempt_repo, character_repo, user_data_repo, server_rule_repo
 from commissar.core.esi.esi import ESI
-from commissar import LOGGER
+from commissar import LOGGER, ConfigLoader
+
+cfg = ConfigLoader().config
+CRON_EXPIRE_AUTH = cfg['auto']['expire_auth']
+CRON_GRANTS = cfg['auto']['grants']
+CRON_UPDATES = cfg['auto']['updates']
 
 
 class AutoCog(commands.Cog):
-    EXPIRE_AUTH_INTERVAL = 5 * 60
-    GRANT_REVOKE_INTERVAL = 5 * 60
-    UPDATE_INTERVAL = 4 * 60 * 60
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        self.expire_auth_task.start()
-        self.update_character_data_task.start()
-        self.grant_revoke_roles_task.start()
-
-    def cog_unload(self):
-        self.expire_auth_task.cancel()
-        self.update_character_data_task.cancel()
-        self.grant_revoke_roles_task.cancel()
-
-    @tasks.loop(seconds=EXPIRE_AUTH_INTERVAL)
-    async def expire_auth_task(self):
-        try:
-            await self.delete_expired_auth_attempts()
-        except Exception as e:
-            LOGGER.error(e, exc_info=True)
-
-    @tasks.loop(seconds=UPDATE_INTERVAL)
-    async def update_character_data_task(self):
-        try:
-            await self.fetch_and_update_characters_data()
-        except Exception as e:
-            LOGGER.error(e, exc_info=True)
-
-    @tasks.loop(seconds=GRANT_REVOKE_INTERVAL)
-    async def grant_revoke_roles_task(self):
-        try:
-            await self.grant_revoke_roles()
-        except Exception as e:
-            LOGGER.error(e, exc_info=True)
-
-    @expire_auth_task.before_loop
-    @update_character_data_task.before_loop
-    @grant_revoke_roles_task.before_loop
-    async def before_start(self):
-        await asyncio.sleep(30)
-        await self.bot.wait_until_ready()
+        LOGGER.info("CRON_EXPIRE_AUTH: {}".format(CRON_EXPIRE_AUTH))
+        LOGGER.info("CRON_GRANTS: {}".format(CRON_GRANTS))
+        LOGGER.info("CRON_UPDATES: {}".format(CRON_UPDATES))
+        cron_jobs = CronJobs(self)
 
     @staticmethod
     async def delete_expired_auth_attempts():
@@ -154,26 +124,26 @@ class AutoCog(commands.Cog):
             LOGGER.info(guild.name)
             rules = server_rule_repo.find_by_discord_server_id(guild.id)
             if rules is None or len(rules) == 0:
-                LOGGER.info('No rules')
+                LOGGER.debug('No rules')
                 break
             grants = 0
             revokes = 0
             failed = 0
             for rule in rules:
-                LOGGER.info("Evaluating '{}' rule for role '{}'...".format(
+                LOGGER.debug("Evaluating '{}' rule for role '{}'...".format(
                     rule.discord_server_name, rule.discord_role_name
                 ))
                 role = guild.get_role(rule.discord_role_id)
                 # do nothing if role is invalid
                 if role is None:
-                    LOGGER.info('No role')
+                    LOGGER.debug('No role')
                     break
                 channel = guild.get_channel(rule.discord_channel_id)
                 locale = Locale[rule.locale]
                 for u in user_data_repo.find_by_server_id(guild.id):
                     member = guild.get_member(u.discord_user_id)
                     if member is None:
-                        LOGGER.info("No member '{}' (ID: {}).".format(u.discord_user_name, u.discord_user_id))
+                        LOGGER.debug("No member '{}' (ID: {}).".format(u.discord_user_name, u.discord_user_id))
                         break
                     found = False
                     for c in u.characters:
@@ -182,7 +152,7 @@ class AutoCog(commands.Cog):
                             found = True
                             break
                     if found:
-                        LOGGER.info('Found.')
+                        LOGGER.debug('Found.')
                         if role not in member.roles:
                             result = await self.grant(member, role, channel, locale)
                             if result:
@@ -190,7 +160,7 @@ class AutoCog(commands.Cog):
                             else:
                                 failed += 1
                     else:
-                        LOGGER.info('Not found.')
+                        LOGGER.debug('Not found.')
                         if role in member.roles:
                             result = self.revoke(member, role, channel, locale)
                             if result:
@@ -202,3 +172,29 @@ class AutoCog(commands.Cog):
             )
         elapsed = datetime.now() - start
         LOGGER.info("Elapsed time: {}".format(elapsed))
+
+
+class CronJobs:
+    def __init__(self, auto_cog: AutoCog) -> None:
+
+        @aiocron.crontab(CRON_EXPIRE_AUTH, start=False)
+        async def expire_auth_task():
+            try:
+                await auto_cog.delete_expired_auth_attempts()
+            except Exception as e:
+                LOGGER.error(e, exc_info=True)
+
+        @aiocron.crontab(CRON_UPDATES, start=False)
+        async def updates_task():
+            try:
+                await auto_cog.fetch_and_update_characters_data()
+            except Exception as e:
+                LOGGER.error(e, exc_info=True)
+
+        @aiocron.crontab(CRON_GRANTS, start=False)
+        async def grants_task():
+            try:
+                await auto_cog.grant_revoke_roles()
+            except Exception as e:
+                LOGGER.error(e, exc_info=True)
+

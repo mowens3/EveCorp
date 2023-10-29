@@ -2,6 +2,7 @@ import logging.handlers
 import os
 import pathlib
 import sys
+from enum import StrEnum
 
 from commissar import core
 from commissar import ConfigLoader
@@ -46,12 +47,11 @@ core.LOGGER = logging.getLogger("logger")
 cl = ConfigLoader(CONFIG_FILEPATH)
 
 
-class ErrorWithCode(Exception):
-    """Application exception with error code
-    """
+class AppException(Exception):
 
     def __init__(self, http_status_code: int, error_code: int, error_message: str):
         self.http_status_code = http_status_code
         self.error_code = error_code
+        self.error_message = error_message
         super().__init__(error_message)
 

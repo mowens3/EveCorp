@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="row my-1">
-    <div class="d-flex justify-content-center">
-        <div class="p-3 bg-body-tertiary rounded-2">
-            <h4 class="strong">{{result_text}}</h4>
-            <hr class="my-2">
-            <span class="small"><span class="me-1">Result code:</span>{{result_code}}</span>
+<div class="card bg-body-tertiary" style="width: 25rem;">
+    <div class="card-body">
+        <h4 class="card-title">{{result_text}}</h4>
+        <p class="card-text">{{message}}</p>
+        <hr>
+        <div class="d-flex justify-content-end">
+            <p class="small"><span class="me-1">Result code:</span>{{result_code}}</p>
         </div>
     </div>
 </div>
+
 {% endblock %}

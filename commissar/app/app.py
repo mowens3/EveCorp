@@ -5,12 +5,12 @@ from httpx import HTTPError
 
 from commissar import ConfigLoader
 from commissar.core.data import Character, UserData, character_repo
-from commissar.core.data import auth_attempt_repo, server_rule_repo, user_data_repo
+from commissar.core.data import auth_attempt_repo, user_data_repo
 from commissar.core.esi.esi import ESI
 from commissar import LOGGER
 from commissar.core.oauth.helpers import validate
 from commissar.core.oauth.oauth_service import OAuthService
-from commissar.app import APP_NAME, ErrorWithCode
+from commissar.app import APP_NAME, AppException
 
 cfg = ConfigLoader().config
 host = cfg['app']['hostname']
@@ -32,15 +32,15 @@ def callback():
     status_code = 200
     result_code = None
     result_text = None
+    message = None
     try:
         if code is None:
-            raise ErrorWithCode(400, -1, "Request doesn't contain 'code' argument")
+            raise AppException(400, 100, "Request doesn't contain 'code' argument")
         if state is None:
-            raise ErrorWithCode(400, -1, "Request doesn't contain 'state' argument")
+            raise AppException(400, 101, "Request doesn't contain 'state' argument")
         attempt = auth_attempt_repo.find(state)
         if attempt is None:
-            raise ErrorWithCode(404, -1,
-                                "Pending Authorization data not found or expired")
+            raise AppException(404, 103, "Pending Authorization data not found or expired")
         access_info = None
         try:
             access_info = OAuthService().get_access_token(code, attempt.code_verifier)
@@ -61,7 +61,7 @@ def callback():
                 LOGGER.info("Character has been registered already.")
                 character_ids = [c.id for c in u.characters]
                 if character_id in character_ids:
-                    raise ErrorWithCode(304, 102, "Character has been registered already.")
+                    raise AppException(304, 104, "Character has been registered already.")
             data = ESI().get_character(character_id)
             corporation_id = data['corporation_id']
             alliance_id = data['alliance_id'] if 'alliance_id' in data else None
@@ -77,20 +77,27 @@ def callback():
             LOGGER.info("Character registered successfully.")
             status_code = 201
             result_code = 0
-            result_text = 'Character registered successfully.'
-    except ErrorWithCode as e:
+            result_text = 'PASS'
+            message = 'Character registered successfully.'
+    except AppException as e:
         LOGGER.error(e)
         status_code = e.http_status_code
         result_code = e.error_code
-        result_text = e.__str__()
+        result_text = "FAIL"
+        message = e.__str__()
     except Exception as e:
         LOGGER.error(e, exc_info=True)
         status_code = 503
         result_code = -1
-        result_text = "Something went wrong."
+        result_text = "FAIL"
+        message = "Something went wrong."
     finally:
         return render_template(
-            "result.html", title=APP_NAME, result_code=result_code, result_text=result_text
+            "result.html",
+            title=APP_NAME,
+            result_code=result_code,
+            result_text=result_text,
+            message=message
         ), status_code
 
 

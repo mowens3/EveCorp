@@ -20,7 +20,7 @@
 <body>
 
     <header>
-        <nav class="navbar navbar-expand-sm  justify-content-center">
+        <nav class="navbar navbar-expand-sm justify-content-center">
             <div class="navbar-brand text-light">
                 <img src="{{ url_for('static', filename='img/icon.png') }}" alt="logo"  style="width:32px;" >
                 {{ title }}
@@ -28,9 +28,9 @@
         </nav>
     </header>
 
-    <div class="container">
+    <div class="container my-2">
 
-        <div class="row" id="content">
+        <div class="row justify-content-center" id="content">
             {% block content %}{% endblock %}
         </div> <!-- row -->
 
