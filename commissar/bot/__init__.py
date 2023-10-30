@@ -34,8 +34,8 @@ HANDLER.setFormatter(FORMATTER)
 logging.basicConfig(
     format=LOGGING_FORMAT,
     encoding='utf-8',
-    # level=logging.INFO,
-    level=logging.DEBUG,
+    level=logging.INFO,
+    # level=logging.DEBUG,
     handlers=[
         HANDLER,
         logging.StreamHandler(sys.stdout)

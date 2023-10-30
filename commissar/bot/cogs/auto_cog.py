@@ -196,7 +196,7 @@ class AutoCog(commands.Cog):
                     else:
                         LOGGER.debug('Not found.')
                         if role in member.roles:
-                            result = self.revoke(member, role, channel, locale)
+                            result = await self.revoke(member, role, channel, locale)
                             if result:
                                 revokes += 1
                             else:
