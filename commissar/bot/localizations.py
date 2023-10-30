@@ -104,7 +104,7 @@ MEMBER_INFO = {
     Locale.en_US.__str__(): "User {}\n"
                             "Roles: {}\n"
                             "Registered characters:",
-    Locale.ru.__str__(): "Пользователь {}: {}\n"
+    Locale.ru.__str__(): "Пользователь {}:\n"
                          "Роли: {}\n"
                          "Зарегистрированные персонажи:"
 }
