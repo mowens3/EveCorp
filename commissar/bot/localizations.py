@@ -25,23 +25,13 @@ GUILD_ONLY = {
 """Server related messages
 """
 
-SERVER_SETTINGS_CREATED = {
+SERVER_SETTINGS_UPDATED = {
     Locale.en_US.__str__(): "Server settings for ***{}***:\n"
                             "* Notification channel: {}\n"
                             "* Notification language: {}",
     Locale.ru.__str__(): "Настройки сервера для ***{}***:\n"
                          "* Канал для уведомлений: {}\n"
                          "* Язык для уведомлений: {}"
-}
-
-SERVER_SETTINGS_UPDATED = {
-    Locale.en_US.__str__(): "Server settings updated",
-    Locale.ru.__str__(): "Настройки сервера обновлены"
-}
-
-SERVER_SETTINGS_NOT_FOUND = {
-    Locale.en_US.__str__(): "Server settings not found",
-    Locale.ru.__str__(): "Настройки для сервера не найдены"
 }
 
 """Server Rules related messages
@@ -76,7 +66,7 @@ SERVER_RULE_EXISTS = {
     Locale.ru.__str__(): "Правило уже существует."
 }
 
-SERVER_RULE_NOT_EXISTS = {
+SERVER_RULE_NOT_FOUND = {
     Locale.en_US.__str__(): "Rule doesn't exists.",
     Locale.ru.__str__(): "Правило не существует."
 }
@@ -92,7 +82,7 @@ SERVER_RULES_INFO_HEADER = {
 }
 
 SERVER_RULES_INFO_ROW = {
-    Locale.en_US.__str__(): "* Rule {}:\n"
+    Locale.en_US.__str__(): "* Rule #{}:\n"
                             "  * Server role: {}\n"
                             "  * EVE Online Corporation: [{} [{}]]({})",
     Locale.ru.__str__(): "* Rule {}:\n"
@@ -110,16 +100,6 @@ ROLE_NOT_FOUND = {
     Locale.ru.__str__(): "Роль на сервере {} `ID: {}` не существует."
 }
 
-CHANNEL_NOT_FOUND = {
-    Locale.en_US.__str__(): "Server channel {} `ID: {}` no longer exist.",
-    Locale.ru.__str__(): "Канал на сервере {} `ID: {}` не существует."
-}
-
-MEMBER_NOT_FOUND = {
-    Locale.en_US.__str__(): "User '{}' not found.",
-    Locale.ru.__str__(): "Пользователь '{}' не найден."
-}
-
 MEMBER_INFO = {
     Locale.en_US.__str__(): "User {}\n"
                             "Roles: {}\n"
@@ -134,7 +114,7 @@ CHARACTER_INFO_HEADER = {
     Locale.ru.__str__(): "Найденные персонажи:"
 }
 
-REPORT_INFO = {
+REPORTS_STATS_INFO = {
     Locale.en_US.__str__(): "Statistics:\n"
                             "* Total users count: {}\n"
                             "* Users registered with bot: {}\n"
@@ -173,14 +153,14 @@ USER_NOT_REGISTERED = {
     Locale.ru.__str__(): "Пользователь {} не зарегистрирован."
 }
 
-CHARACTER_ALREADY_REGISTERED = {
-    Locale.en_US.__str__(): "EVE Online character with ID `{}` already registered.",
-    Locale.ru.__str__(): "Персонаж EVE Online с ID `{}` уже зарегистрирован."
-}
-
 NO_REGISTERED_USERS = {
     Locale.en_US.__str__(): "No registered users.",
     Locale.ru.__str__(): "Нет зарегистрированных пользователей"
+}
+
+CHARACTER_ALREADY_REGISTERED = {
+    Locale.en_US.__str__(): "EVE Online character with ID `{}` already registered.",
+    Locale.ru.__str__(): "Персонаж EVE Online с ID `{}` уже зарегистрирован."
 }
 
 REGISTERED_USERS_HEADER = {
@@ -218,19 +198,9 @@ CHARACTER_REGISTERED = {
     Locale.ru.__str__(): "Персонаж EVE Character ***{}*** привязан к пользователю {}."
 }
 
-USER_CHARACTER_NOT_FOUND = {
-    Locale.en_US.__str__(): "EVE Online Character with ID `{}` not found in {} character list",
-    Locale.ru.__str__(): "Персонаж EVE Online с ID `{}` не найден в списке персонажей {}."
-}
-
 USER_CHARACTER_REMOVED = {
     Locale.en_US.__str__(): "EVE Online character ***{}*** has been removed from {} character list.",
     Locale.ru.__str__(): "Персонаж EVE Character ***{}*** удален из списка персонажей {}."
-}
-
-ROLE_ALREADY_GRANTED = {
-    Locale.en_US.__str__(): "Role {} already granted.",
-    Locale.ru.__str__(): "Роль {} уже выдана."
 }
 
 ROLE_GRANTED = {

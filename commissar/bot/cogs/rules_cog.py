@@ -105,7 +105,7 @@ class RulesCog(commands.Cog, name="Rules"):
                 raise BotException(get_localized(GUILD_ONLY, loc))
             rules = server_rule_repo.find_by_discord_server_id(interaction.guild.id)
             if rules is None or len(rules) == 0:
-                raise BotException(get_localized(SERVER_RULES_NOT_FOUND, loc).format(interaction.guild.name))
+                raise BotException(get_localized(SERVER_RULE_NOT_FOUND, loc).format(interaction.guild.name))
             await interaction.send(
                 get_localized(SERVER_RULE_PICK, loc), view=RuleDropdownView(rules), ephemeral=True)
         except BotException as e:

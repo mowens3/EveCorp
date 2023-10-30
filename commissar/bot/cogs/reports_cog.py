@@ -46,7 +46,7 @@ class ReportsCog(commands.Cog):
                 characters_count += len(u.characters)
                 registered_users_count += 1
             unregistered_users_count = total_users_count - registered_users_count
-            await bot_response(interaction, get_localized(REPORT_INFO, loc).format(
+            await bot_response(interaction, get_localized(REPORTS_STATS_INFO, loc).format(
                 total_users_count, registered_users_count, unregistered_users_count, characters_count
             ))
         except BotException as e:

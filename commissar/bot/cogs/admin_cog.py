@@ -54,7 +54,9 @@ class AdminCog(commands.Cog):
             server.discord_channel_name = channel.name
             server.locale = locale
             server_repo.save(server)
-            await bot_response(interaction, get_localized(SERVER_SETTINGS_UPDATED, loc))
+            await bot_response(interaction, get_localized(SERVER_SETTINGS_UPDATED, loc).format(
+                interaction.guild.name, channel.mention, _locale
+            ))
         except BotException as e:
             await bot_response(interaction, e.__str__())
         except BaseException as e:
