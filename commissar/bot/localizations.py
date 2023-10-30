@@ -106,7 +106,7 @@ MEMBER_INFO = {
                             "Registered characters:",
     Locale.ru.__str__(): "Пользователь {}: {}\n"
                          "Роли: {}\n"
-                         "Зарегистрированные персонажи: {}"
+                         "Зарегистрированные персонажи:"
 }
 
 CHARACTER_INFO_HEADER = {
