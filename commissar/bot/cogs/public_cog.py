@@ -39,9 +39,7 @@ class PublicCog(commands.Cog):
         try:
             if interaction.guild is None:
                 raise BotException(get_localized(GUILD_ONLY, loc))
-            server = server_repo.find_by_discord_server_id(interaction.guild.id)
-            if server is None:
-                raise BotException(get_localized(SERVER_SETTINGS_NOT_FOUND, loc))
+            server_repo.find_or_create(interaction.guild.id, interaction.guild.name)
             auth = OAuthService()
             info = auth.authorize()
             p = AuthAttempt(

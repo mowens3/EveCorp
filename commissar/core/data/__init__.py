@@ -37,8 +37,8 @@ class Server(Base):
     """
     discord_server_id = Column(BigInteger(), primary_key=True)
     discord_server_name = Column(String(DISCORD_SERVER_NAME_LEN), nullable=False)
-    discord_channel_id = Column(BigInteger(), nullable=False)
-    discord_channel_name = Column(String(DISCORD_CHANNEL_NAME_LEN))
+    discord_channel_id = Column(BigInteger(), nullable=True)
+    discord_channel_name = Column(String(DISCORD_CHANNEL_NAME_LEN), nullable=True)
     locale = Column(String(LOCALE_LEN), nullable=True)
     created = Column(DateTime(), default=datetime.now)
     updated = Column(DateTime(), default=None, onupdate=datetime.now)
@@ -58,8 +58,8 @@ class ServerRule(Base):
     discord_role_id = Column(BigInteger(), nullable=False)
     discord_role_name = Column(String(DISCORD_ROLE_NAME_LEN))
     corporation_id = Column(BigInteger(), nullable=False)
-    corporation_name = Column(String(CORP_NAME_LEN))
-    corporation_ticker = Column(String(CORP_TICKER_LEN))
+    corporation_name = Column(String(CORP_NAME_LEN), nullable=False)
+    corporation_ticker = Column(String(CORP_TICKER_LEN), nullable=False)
     created = Column(DateTime(), default=datetime.now)
     updated = Column(DateTime(), default=None, onupdate=datetime.now)
 
@@ -97,7 +97,7 @@ class UserData(Base):
     id = Column(Integer(), primary_key=True)
     discord_server_id = Column(BigInteger(), ForeignKey('server.discord_server_id'), nullable=False)
     discord_user_id = Column(BigInteger(), nullable=False)
-    discord_user_name = Column(String(DISCORD_USER_NAME_LEN))
+    discord_user_name = Column(String(DISCORD_USER_NAME_LEN), nullable=False)
     created = Column(DateTime(), default=datetime.now)
     updated = Column(DateTime(), default=None, onupdate=datetime.now)
 

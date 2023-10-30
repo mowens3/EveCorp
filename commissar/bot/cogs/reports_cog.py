@@ -5,7 +5,7 @@ from nextcord.ext import commands
 from commissar.bot import BotException
 from commissar.bot.localizations import *
 from commissar.bot.response import bot_response, bot_response_multi
-from commissar.core.data import user_data_repo
+from commissar.core.data import user_data_repo, server_repo
 from commissar import LOGGER
 
 
@@ -33,14 +33,14 @@ class ReportsCog(commands.Cog):
     async def stats(self, interaction: nextcord.Interaction):
         loc = interaction.locale
         try:
+            if interaction.guild is None:
+                raise BotException(get_localized(GUILD_ONLY, loc))
             # no bots
             total_users_count = sum([1 if not m.bot else 0 for m in interaction.guild.members])
             if total_users_count == 0:
                 raise BotException(get_localized(INVALID_PERMISSIONS_MEMBER_LIST, loc))
             registered_users_count = 0
             characters_count = 0
-            if interaction.guild is None:
-                raise BotException(get_localized(GUILD_ONLY, loc))
             users = user_data_repo.find_by_server_id(interaction.guild.id)
             for u in users:
                 characters_count += len(u.characters)

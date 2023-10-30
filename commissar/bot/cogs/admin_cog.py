@@ -49,26 +49,12 @@ class AdminCog(commands.Cog):
             if interaction.guild is None:
                 raise BotException(get_localized(GUILD_ONLY, loc))
             _locale = Locale[locale].name
-            server = server_repo.find_by_discord_server_id(interaction.guild.id)
-            if server is not None:
-                server.discord_channel_id = channel.id
-                server.discord_channel_name = channel.name
-                server.locale = locale
-                server_repo.save(server)
-                await bot_response(interaction, get_localized(SERVER_SETTINGS_UPDATED, loc))
-            else:
-                r = Server(
-                    discord_server_id=interaction.guild.id,
-                    discord_server_name=interaction.guild.name,
-                    discord_channel_id=channel.id,
-                    discord_channel_name=channel.name,
-                    locale=_locale
-                )
-                server_repo.save(r)
-                await bot_response(interaction, get_localized(SERVER_SETTINGS_CREATED, loc).format(
-                        interaction.guild.name, channel.mention, _locale
-                    )
-                )
+            server = server_repo.find_or_create(interaction.guild.id, interaction.guild.name)
+            server.discord_channel_id = channel.id
+            server.discord_channel_name = channel.name
+            server.locale = locale
+            server_repo.save(server)
+            await bot_response(interaction, get_localized(SERVER_SETTINGS_UPDATED, loc))
         except BotException as e:
             await bot_response(interaction, e.__str__())
         except BaseException as e:
@@ -111,6 +97,7 @@ class AdminCog(commands.Cog):
         try:
             if interaction.guild is None:
                 raise BotException(get_localized(GUILD_ONLY, loc))
+            server_repo.find_or_create(interaction.guild.id, interaction.guild.name)
             # check character with ESI
             data = ESI().get_character(character_id)
             if data is None:

@@ -153,7 +153,7 @@ class AutoCog(commands.Cog):
         # only connected servers
         for guild in self.bot.guilds:
             LOGGER.info(guild.name)
-            server = server_repo.find_by_discord_server_id(guild.id)
+            server = server_repo.find(guild.id)
             if server is None:
                 break
             rules = server_rule_repo.find_by_discord_server_id(guild.id)

@@ -53,9 +53,7 @@ class RulesCog(commands.Cog, name="Rules"):
         try:
             if interaction.guild is None:
                 raise BotException(get_localized(GUILD_ONLY, loc))
-            server = server_repo.find_by_discord_server_id(interaction.guild.id)
-            if server is None:
-                raise BotException(get_localized(SERVER_SETTINGS_NOT_FOUND, loc))
+            server_repo.find_or_create(interaction.guild.id, interaction.guild.name)
             # check corporation with ESI
             data = ESI().get_corporation(corporation_id)
             if data is None:
@@ -105,9 +103,6 @@ class RulesCog(commands.Cog, name="Rules"):
         try:
             if interaction.guild is None:
                 raise BotException(get_localized(GUILD_ONLY, loc))
-            server = server_repo.find_by_discord_server_id(interaction.guild.id)
-            if server is None:
-                raise BotException(get_localized(SERVER_SETTINGS_NOT_FOUND, loc))
             rules = server_rule_repo.find_by_discord_server_id(interaction.guild.id)
             if rules is None or len(rules) == 0:
                 raise BotException(get_localized(SERVER_RULES_NOT_FOUND, loc).format(interaction.guild.name))
@@ -132,9 +127,6 @@ class RulesCog(commands.Cog, name="Rules"):
         try:
             if interaction.guild is None:
                 raise BotException(get_localized(GUILD_ONLY, loc))
-            server = server_repo.find_by_discord_server_id(interaction.guild.id)
-            if server is None:
-                raise BotException(get_localized(SERVER_SETTINGS_NOT_FOUND, loc))
             rules = server_rule_repo.find_by_discord_server_id(interaction.guild.id)
             if rules is None or len(rules) == 0:
                 raise BotException(get_localized(SERVER_RULES_NOT_FOUND, loc).format(interaction.guild.name))
