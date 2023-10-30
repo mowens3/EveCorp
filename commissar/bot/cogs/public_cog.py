@@ -21,8 +21,7 @@ class PublicCog(commands.Cog):
 
     @nextcord.slash_command(
         name="character",
-        dm_permission=False,
-        default_member_permissions=Permissions(administrator=True)
+        dm_permission=False
     )
     async def character(self, interaction: nextcord.Interaction):
         pass
