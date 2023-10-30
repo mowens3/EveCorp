@@ -1,4 +1,4 @@
-# EVE CommissarBo
+# EVE Commissar
 
 [![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/AnaxRho/EVECommissar/blob/main/README.md)
 [![ru](https://img.shields.io/badge/lang-ru-yellow.svg)](https://github.com/AnaxRho/EVECommissar/blob/main/README.ru.md)
