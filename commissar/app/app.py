@@ -77,8 +77,8 @@ def callback():
             LOGGER.info("Character registered successfully.")
             status_code = 201
             result_code = 0
-            result_text = 'PASS'
-            message = 'Character registered successfully.'
+            result_text = 'REGISTERED'
+            message = 'Character registered successfully. You can close this page and return to Discord server.'
     except AppException as e:
         LOGGER.error(e)
         status_code = e.http_status_code

@@ -152,7 +152,7 @@ class AutoCog(commands.Cog):
         start = datetime.now()
         # only connected servers
         for guild in self.bot.guilds:
-            LOGGER.info(guild.name)
+            LOGGER.info("Running for '{}'...".format(guild.name))
             server = server_repo.find(guild.id)
             if server is not None:
                 rules = server_rule_repo.find_by_discord_server_id(guild.id)
@@ -163,7 +163,7 @@ class AutoCog(commands.Cog):
                 revokes = 0
                 failed = 0
                 for rule in rules:
-                    LOGGER.info("Evaluating '{}' rule for role '{}'...".format(
+                    LOGGER.info("Evaluating '{}' server rule for role '{}'...".format(
                         server.discord_server_name, rule.discord_role_name
                     ))
                     role = guild.get_role(rule.discord_role_id)
