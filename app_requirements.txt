@@ -1,4 +1,6 @@
 setuptools==68.2.2
+# enums in 3.11-
+StrEnum~=0.4.15
 # config
 PyYAML~=6.0
 # ESI
