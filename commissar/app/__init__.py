@@ -64,7 +64,7 @@ class Result(StrEnum):
 
 class Locale(StrEnum):
     ru = "ru"
-    en_US = "en_US"
+    en_US = "en-US"
 
 
 SOMETHING_WENT_WRONG = {
