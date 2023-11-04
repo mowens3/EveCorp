@@ -61,7 +61,7 @@ def callback():
                 LOGGER.info("User has been registered already.")
                 # check registered characters
                 if u.characters is not None:
-                    character_ids = [c.id for c in u.characters]
+                    character_ids = [c.character_id for c in u.characters]
                     if character_id in character_ids:
                         raise AppException(304, 102,
                                            get_localized(CHARACTER_ALREADY_REGISTERED, locale))
