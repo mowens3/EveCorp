@@ -2,7 +2,7 @@ import logging.handlers
 import os
 import pathlib
 import sys
-from enum import StrEnum
+from enum import Enum
 
 from commissar import core
 from commissar import ConfigLoader
@@ -55,6 +55,12 @@ class AppException(Exception):
         self.error_message = error_message
         super().__init__(error_message)
 
+
+class StrEnum(str, Enum):
+    """An enum that supports comparing and hashing as a string."""
+
+    def __str__(self) -> str:
+        return self.value
 
 class Result(StrEnum):
     REGISTERED = "REGISTERED"
