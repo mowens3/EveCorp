@@ -84,10 +84,13 @@ def callback():
             message = get_localized(CHARACTER_REGISTERED_SUCCESSFULLY, locale)
     except AppException as e:
         LOGGER.error(e)
-        status_code = e.http_status_code
-        result_code = e.error_code
-        result_text = Result.FAIL
-        message = e.__str__()
+        return render_template(
+            "result.html",
+            title=APP_NAME,
+            result_code=e.error_code,
+            result_text=Result.FAIL,
+            message=e.__str__()
+        ), e.http_status_code
     except Exception as e:
         LOGGER.error(e, exc_info=True)
         status_code = 503
