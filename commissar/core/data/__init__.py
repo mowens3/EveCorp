@@ -81,6 +81,7 @@ class AuthAttempt(Base):
     discord_user_id = Column(BigInteger(), nullable=False)
     discord_user_name = Column(String(DISCORD_USER_NAME_LEN), nullable=False)
     code_verifier = Column(String(OATH_CODE_VERIFIER_LEN), nullable=False)
+    locale = Column(String(LOCALE_LEN), nullable=True)
     created = Column(DateTime(), default=datetime.now)
     expire = Column(DateTime(), default=datetime.now() + timedelta(minutes=AUTH_ATTEMPT_TTL_MINUTES))
 

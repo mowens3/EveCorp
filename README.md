@@ -55,7 +55,7 @@ Use command `/rules remove` to remove rule.
 ### Automated tasks
 
 * EVE Commissar updated registered characters info every 4 hours.
-* EVE Commissar check if some members is missing role or has role, which he should not have every 5 minutes.
+* EVE Commissar check if some members is missing role or has role, which he should not have every 20 minutes.
   * For granting role user should have at least one registered character in specified corporation.
   * For revoking role user should not have registered character in specified corporation.
 

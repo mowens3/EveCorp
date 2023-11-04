@@ -5,10 +5,6 @@ def get_localized(a: dict, locale: str):
     return a[locale] if locale in [Locale.ru] else a[Locale.en_US.__str__()]
 
 
-def get_localized_f(a: dict, locale: str, *args):
-    return a[locale].format(args) if locale in [Locale.ru] else a[Locale.en_US.__str__()]
-
-
 """Generic messages
 """
 

@@ -2,6 +2,7 @@ import logging.handlers
 import os
 import pathlib
 import sys
+from enum import StrEnum
 
 from commissar import core
 from commissar import ConfigLoader
@@ -54,3 +55,33 @@ class AppException(Exception):
         self.error_message = error_message
         super().__init__(error_message)
 
+
+class Result(StrEnum):
+    REGISTERED = "REGISTERED"
+    OK = "OK"
+    FAIL = "FAIL"
+
+
+class Locale(StrEnum):
+    ru = "ru"
+    en_US = "en_US"
+
+
+SOMETHING_WENT_WRONG = {
+    Locale.en_US.__str__(): "Something went wrong.",
+    Locale.ru.__str__(): "Что-то пошло не так."
+}
+
+CHARACTER_ALREADY_REGISTERED = {
+    Locale.en_US.__str__(): "Character has been registered already.",
+    Locale.ru.__str__(): "Персонаж уже зарегистрирован"
+}
+
+CHARACTER_REGISTERED_SUCCESSFULLY = {
+    Locale.en_US.__str__(): "Character registered successfully. You can close this page and return to Discord server.",
+    Locale.ru.__str__(): "Персонаж успешно зарегистрирован. Вы можете закрыть эту вкладку и вернуться в Discord."
+}
+
+
+def get_localized(a: dict, locale: str):
+    return a[locale] if locale in [Locale.ru] else a[Locale.en_US.__str__()]

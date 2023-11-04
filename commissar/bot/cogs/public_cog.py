@@ -46,7 +46,8 @@ class PublicCog(commands.Cog):
                 discord_user_id=interaction.user.id,
                 discord_user_name=interaction.user.name,
                 state=info.state,
-                code_verifier=info.code_verifier
+                code_verifier=info.code_verifier,
+                locale=interaction.locale.__str__()
             )
             auth_attempt_repo.save(p)
             # send direct message with link
