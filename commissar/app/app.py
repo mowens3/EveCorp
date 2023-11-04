@@ -62,8 +62,9 @@ def callback():
                 # check registered characters
                 if u.characters is not None:
                     character_ids = [c.character_id for c in u.characters]
+                    LOGGER.info("{} in [{}]".format(character_id, character_ids))
                     if character_id in character_ids:
-                        raise AppException(304, 102,
+                        raise AppException(400, 102,
                                            get_localized(CHARACTER_ALREADY_REGISTERED, locale))
             data = ESI().get_character(character_id)
             corporation_id = data['corporation_id']
@@ -84,13 +85,10 @@ def callback():
             message = get_localized(CHARACTER_REGISTERED_SUCCESSFULLY, locale)
     except AppException as e:
         LOGGER.error(e)
-        return render_template(
-            "result.html",
-            title=APP_NAME,
-            result_code=e.error_code,
-            result_text=Result.FAIL,
-            message=e.__str__()
-        ), e.http_status_code
+        status_code = e.http_status_code
+        result_code = e.error_code
+        result_text = Result.FAIL
+        message = e.error_message
     except Exception as e:
         LOGGER.error(e, exc_info=True)
         status_code = 503
