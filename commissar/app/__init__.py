@@ -62,6 +62,7 @@ class StrEnum(str, Enum):
     def __str__(self) -> str:
         return self.value
 
+
 class Result(StrEnum):
     REGISTERED = "REGISTERED"
     OK = "OK"
@@ -79,13 +80,17 @@ SOMETHING_WENT_WRONG = {
 }
 
 CHARACTER_ALREADY_REGISTERED = {
-    Locale.en_US.__str__(): "Character has been registered already.",
-    Locale.ru.__str__(): "Персонаж уже зарегистрирован"
+    Locale.en_US.__str__(): "Character has been registered already. "
+                            "You can close this page and return to Discord server.",
+    Locale.ru.__str__(): "Персонаж уже зарегистрирован. "
+                         "Вы можете закрыть эту вкладку и вернуться в Discord."
 }
 
 CHARACTER_REGISTERED_SUCCESSFULLY = {
-    Locale.en_US.__str__(): "Character registered successfully. You can close this page and return to Discord server.",
-    Locale.ru.__str__(): "Персонаж успешно зарегистрирован. Вы можете закрыть эту вкладку и вернуться в Discord."
+    Locale.en_US.__str__(): "Character registered successfully. "
+                            "You can close this page and return to Discord server.",
+    Locale.ru.__str__(): "Персонаж успешно зарегистрирован. "
+                         "Вы можете закрыть эту вкладку и вернуться в Discord."
 }
 
 
