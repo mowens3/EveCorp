@@ -58,11 +58,13 @@ def callback():
                 )
                 user_data_repo.save(u)
             else:
-                LOGGER.info("Character has been registered already.")
-                character_ids = [c.id for c in u.characters]
-                if character_id in character_ids:
-                    raise AppException(304, 102,
-                                       get_localized(CHARACTER_ALREADY_REGISTERED, locale))
+                LOGGER.info("User has been registered already.")
+                # check registered characters
+                if u.characters is not None:
+                    character_ids = [c.id for c in u.characters]
+                    if character_id in character_ids:
+                        raise AppException(304, 102,
+                                           get_localized(CHARACTER_ALREADY_REGISTERED, locale))
             data = ESI().get_character(character_id)
             corporation_id = data['corporation_id']
             alliance_id = data['alliance_id'] if 'alliance_id' in data else None
