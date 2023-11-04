@@ -1,3 +1,4 @@
+import json
 import uuid
 
 import httpx
@@ -52,6 +53,8 @@ class OAuthService(metaclass=SingletonMeta):
             location_url = response.headers["location"]
             i = AuthorizationInfo(code_verifier, state, location_url)
             return i
+        else:
+            LOGGER.error(response.text)
 
     def get_access_token(self, code: str, code_verifier: str) -> AccessInfo:
         """OAuth 2.0 access token call
@@ -76,6 +79,8 @@ class OAuthService(metaclass=SingletonMeta):
             access_info = parse_token_response(response.json())
         else:
             LOGGER.error(response.text)
+            _json = json.loads(response.text)
+            raise RuntimeError(_json['error_description'])
         return access_info
 
     def refresh_access_token(self, refresh_token: str) -> AccessInfo:
@@ -98,6 +103,8 @@ class OAuthService(metaclass=SingletonMeta):
             return parse_token_response(response.json())
         else:
             LOGGER.error(response.text)
+            _json = json.loads(response.text)
+            raise RuntimeError(_json['error_description'])
 
     def refresh_access_token_if_needed(self, access_info: AccessInfo) -> AccessInfo:
         """Method for handling optionally expired Access Token
