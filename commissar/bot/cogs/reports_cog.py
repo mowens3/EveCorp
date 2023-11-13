@@ -68,14 +68,14 @@ class ReportsCog(commands.Cog):
         try:
             if interaction.guild is None:
                 raise BotException(get_localized(GUILD_ONLY, loc))
-            registered_user = user_data_repo.find_by_server_id(interaction.guild.id)
-            registered_user_ids = [u.discord_user_id for u in registered_user]
-            unregistered = [m for m in interaction.guild.members if not m.bot and m.id not in registered_user_ids]
-            if len(unregistered) == 0:
+            registered = user_data_repo.find_by_server_id(interaction.guild.id)
+            registered_user_ids = [u.discord_user_id for u in registered]
+            unregistered_users = [m for m in interaction.guild.members if not m.bot and m.id not in registered_user_ids]
+            if len(unregistered_users) == 0:
                 raise BotException(get_localized(NO_UNREGISTERED_USERS_HEADER, loc))
             messages.append(get_localized(UNREGISTERED_USERS_HEADER, loc))
-            for m in unregistered:
-                messages.append("- {}".format(m.mention))
+            unregistered = ", ".join([u.mention for u in unregistered_users])
+            messages.append("{}".format(unregistered))
             # send response with all messages
             await bot_response_multi(interaction, messages)
         except BotException as e:
@@ -106,14 +106,9 @@ class ReportsCog(commands.Cog):
                 if member is None:
                     LOGGER.warn("User '{}' (ID: {}) not found".format(u.discord_user_name, u.discord_user_id))
                 else:
-                    roles = []
-                    for r in member.roles:
-                        # except default permissions
-                        if r.name != '@everyone':
-                            roles.append(r.mention)
-                    messages.append("- {} ({})".format(member.mention, ", ".join(roles)))
-                    for c in u.characters:
-                        messages.append("  - {} `ID: {}`".format(c.character_name, c.character_id))
+                    roles = ", ".join([r.mention for r in member.roles if r.name != '@everyone'])
+                    characters = ", ".join([c.character_name for c in u.characters])
+                    messages.append("- {} ({}): {}".format(member.mention, roles, characters))
             # send response with all messages
             await bot_response_multi(interaction, messages)
         except BotException as e:

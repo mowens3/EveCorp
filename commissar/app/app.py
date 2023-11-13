@@ -4,7 +4,7 @@ from flask import Flask, request, render_template
 from httpx import HTTPError
 
 from commissar import ConfigLoader
-from commissar.core.data import Character, UserData, character_repo
+from commissar.core.data import Character, UserData, character_repo, server_rule_repo, server_repo
 from commissar.core.data import auth_attempt_repo, user_data_repo
 from commissar.core.esi.esi import ESI
 from commissar import LOGGER
@@ -96,6 +96,58 @@ def callback():
         result_text = Result.FAIL
         message = get_localized(SOMETHING_WENT_WRONG, locale)
     finally:
+        return render_template(
+            "result.html",
+            title=APP_NAME,
+            result_code=result_code,
+            result_text=result_text,
+            message=message
+        ), status_code
+
+
+@app.route('/reports/registered', methods=['GET'])
+@app.route('/reports/registered.html', methods=['GET'])
+def registered():
+    discord_server_id = request.args.get('discord_server_id')
+    page = request.args.get('page', 1, type=int)
+    status_code = 200
+    locale = Locale.en_US
+    try:
+        if discord_server_id is None:
+            raise AppException(400, 100, "Bad Request")
+        discord_server_id = int(discord_server_id)
+        server = server_repo.find(discord_server_id)
+        if server is None:
+            raise AppException(404, 101, "Server settings not found")
+        locale = server.locale
+        registered_users = user_data_repo.find_by_server_id_paginate(discord_server_id, page, 10)
+        if len(registered_users) == 0:
+            raise AppException(404, 102, "No registered users returned")
+        return render_template(
+            "registered.html",
+            title=APP_NAME,
+            discord_server=server,
+            pagination=registered_users
+        ), status_code
+    except AppException as e:
+        LOGGER.error(e)
+        status_code = e.http_status_code
+        result_code = e.error_code
+        result_text = Result.FAIL
+        message = e.error_message
+        return render_template(
+            "result.html",
+            title=APP_NAME,
+            result_code=result_code,
+            result_text=result_text,
+            message=message
+        ), status_code
+    except Exception as e:
+        LOGGER.error(e, exc_info=True)
+        status_code = 503
+        result_code = -1
+        result_text = Result.FAIL
+        message = get_localized(SOMETHING_WENT_WRONG, locale)
         return render_template(
             "result.html",
             title=APP_NAME,
