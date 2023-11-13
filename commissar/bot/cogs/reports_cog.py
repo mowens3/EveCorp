@@ -71,11 +71,16 @@ class ReportsCog(commands.Cog):
             registered = user_data_repo.find_by_server_id(interaction.guild.id)
             registered_user_ids = [u.discord_user_id for u in registered]
             unregistered_users = [m for m in interaction.guild.members if not m.bot and m.id not in registered_user_ids]
-            if len(unregistered_users) == 0:
+            cnt = len(unregistered_users)
+            if cnt == 0:
                 raise BotException(get_localized(NO_UNREGISTERED_USERS_HEADER, loc))
-            messages.append(get_localized(UNREGISTERED_USERS_HEADER, loc))
-            unregistered = ", ".join([u.mention for u in unregistered_users])
-            messages.append("{}".format(unregistered))
+            messages.append(get_localized(UNREGISTERED_USERS_HEADER, loc).format(cnt))
+            i = 0
+            for u in unregistered_users:
+                messages.append(u.mention)
+                if i != cnt - 1:
+                    messages.append(", ")
+                i += 1
             # send response with all messages
             await bot_response_multi(interaction, messages)
         except BotException as e:
@@ -97,18 +102,19 @@ class ReportsCog(commands.Cog):
         try:
             if interaction.guild is None:
                 raise BotException(get_localized(GUILD_ONLY, loc))
-            users = user_data_repo.find_by_server_id(interaction.guild.id)
-            if users is None or len(users) == 0:
+            registered_users = user_data_repo.find_by_server_id(interaction.guild.id)
+            if registered_users is None or len(registered_users) == 0:
                 raise BotException(get_localized(NO_REGISTERED_USERS, loc))
-            messages.append(get_localized(REGISTERED_USERS_HEADER, loc))
-            for u in users:
+            cnt = len(registered_users)
+            messages.append(get_localized(REGISTERED_USERS_HEADER, loc).format(cnt))
+            for u in registered_users:
                 member = interaction.guild.get_member(u.discord_user_id)
                 if member is None:
                     LOGGER.warn("User '{}' (ID: {}) not found".format(u.discord_user_name, u.discord_user_id))
                 else:
                     roles = ", ".join([r.mention for r in member.roles if r.name != '@everyone'])
                     characters = ", ".join([c.character_name for c in u.characters])
-                    messages.append("- {} ({}): {}".format(member.mention, roles, characters))
+                    messages.append("* {} ({}): {}\n".format(member.mention, roles, characters))
             # send response with all messages
             await bot_response_multi(interaction, messages)
         except BotException as e:

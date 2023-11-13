@@ -83,7 +83,7 @@ class PublicCog(commands.Cog):
             messages.append(get_localized(MEMBER_INFO, loc).format(interaction.user.mention, ", ".join(roles)))
             for c in u.characters:
                 _link = ZKILLBOARD_CHARACTER_URL_PATTERN.format(c.character_id)
-                messages.append("- [{}]({}) `ID: {}`".format(c.character_name, _link, c.character_id))
+                messages.append("* [{}]({})\n".format(c.character_name, _link))
             # send response with all messages
             await bot_response_multi(interaction, messages)
         except BotException as e:

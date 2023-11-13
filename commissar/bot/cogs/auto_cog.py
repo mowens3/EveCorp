@@ -20,21 +20,8 @@ CRON_UPDATES = cfg['auto']['updates']
 
 class AutoCog(commands.Cog):
 
-    @staticmethod
-    def describe_cron_expr(alias: str, expr: str):
-        _prev = datetime.fromtimestamp(croniter(expr).get_prev()).strftime(DTF)
-        _next = datetime.fromtimestamp(croniter(expr).get_next()).strftime(DTF)
-        LOGGER.info("{}:\t'{}'\t\tprev: {}\tnext: {}".format(alias, expr, _prev, _next))
-
-    @staticmethod
-    def cron_next(expr: str):
-        return datetime.fromtimestamp(croniter(expr).get_next()).strftime(DTF)
-
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        self.describe_cron_expr('     CRON_GRANTS', CRON_GRANTS)
-        self.describe_cron_expr('    CRON_UPDATES', CRON_UPDATES)
-        self.describe_cron_expr('CRON_EXPIRE_AUTH', CRON_EXPIRE_AUTH)
 
         @aiocron.crontab(CRON_EXPIRE_AUTH, start=True)
         async def expire_auth_task():

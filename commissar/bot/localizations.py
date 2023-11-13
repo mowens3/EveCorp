@@ -73,8 +73,8 @@ SERVER_RULE_REMOVED = {
 }
 
 SERVER_RULES_INFO_HEADER = {
-    Locale.en_US.__str__(): "Rules for ***{}***:",
-    Locale.ru.__str__(): "Правила для ***{}***:"
+    Locale.en_US.__str__(): "Rules for ***{}***:\n",
+    Locale.ru.__str__(): "Правила для ***{}***:\n"
 }
 
 SERVER_RULES_INFO_ROW = {
@@ -99,15 +99,15 @@ ROLE_NOT_FOUND = {
 MEMBER_INFO = {
     Locale.en_US.__str__(): "User {}\n"
                             "Roles: {}\n"
-                            "Registered characters:",
+                            "Registered characters:\n",
     Locale.ru.__str__(): "Пользователь {}:\n"
                          "Роли: {}\n"
-                         "Зарегистрированные персонажи:"
+                         "Зарегистрированные персонажи:\n"
 }
 
 CHARACTER_INFO_HEADER = {
-    Locale.en_US.__str__(): "Found characters:",
-    Locale.ru.__str__(): "Найденные персонажи:"
+    Locale.en_US.__str__(): "Found characters:\n",
+    Locale.ru.__str__(): "Найденные персонажи:\n"
 }
 
 REPORTS_STATS_INFO = {
@@ -160,8 +160,8 @@ CHARACTER_ALREADY_REGISTERED = {
 }
 
 REGISTERED_USERS_HEADER = {
-    Locale.en_US.__str__(): "Registered users:",
-    Locale.ru.__str__(): "Зарегистрированные пользователи:"
+    Locale.en_US.__str__(): "Registered users ({}):\n",
+    Locale.ru.__str__(): "Зарегистрированные пользователи ({}):\n"
 }
 
 NO_UNREGISTERED_USERS_HEADER = {
@@ -170,8 +170,8 @@ NO_UNREGISTERED_USERS_HEADER = {
 }
 
 UNREGISTERED_USERS_HEADER = {
-    Locale.en_US.__str__(): "Unregistered users:",
-    Locale.ru.__str__(): "Незарегистрированные пользователи:"
+    Locale.en_US.__str__(): "Unregistered users ({}):\n",
+    Locale.ru.__str__(): "Незарегистрированные пользователи ({}):\n"
 }
 
 USER_CHARACTERS_NOT_FOUND = {

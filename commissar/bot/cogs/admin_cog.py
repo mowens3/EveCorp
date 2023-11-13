@@ -167,7 +167,7 @@ class AdminCog(commands.Cog):
             messages.append(get_localized(MEMBER_INFO, loc).format(member.mention, ", ".join(roles)))
             for c in u.characters:
                 _link = ZKILLBOARD_CHARACTER_URL_PATTERN.format(c.character_id)
-                messages.append("- [{}]({}) `ID: {}`".format(c.character_name, _link, c.character_id))
+                messages.append("* [{}]({})\n".format(c.character_name, _link))
             # send response with all messages
             await bot_response_multi(interaction, messages)
         except BotException as e:
@@ -208,7 +208,7 @@ class AdminCog(commands.Cog):
             for c in chars:
                 member = interaction.guild.get_member(c.user_data.discord_user_id)
                 _link = ZKILLBOARD_CHARACTER_URL_PATTERN.format(c.character_id)
-                messages.append("- [{}]({}) {}".format(c.character_name, _link, member.mention))
+                messages.append("* [{}]({}) {}\n".format(c.character_name, _link, member.mention))
                 count += 1
             if count == 0:
                 raise BotException(get_localized(QUERY_CHARACTERS_NOT_FOUND, loc))
