@@ -1,6 +1,6 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 
-from commissar.core.data import get_session, AuthAttempt, AUTH_ATTEMPT_TTL_MINUTES
+from commissar.core.data import get_session, AuthAttempt
 
 
 def save(a: AuthAttempt) -> None:

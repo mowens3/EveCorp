@@ -28,7 +28,7 @@ def find_by_server_id(discord_server_id: int) -> list[UserData]:
 
 
 def find_by_server_id_paginate(discord_server_id: int, page: int = 1, per_page: int = 10) -> dict:
-    with (get_session() as session):
+    with get_session() as session:
         offset = (page-1) * per_page
         stmt = session.query(UserData).options(joinedload(UserData.characters)).filter(
             UserData.discord_server_id == discord_server_id)
