@@ -101,7 +101,10 @@ class AutoCog(commands.Cog):
                 ))
                 return False
             if channel is not None:
-                await channel.send(get_localized(ROLE_GRANTED, locale).format(role.mention, member.mention))
+                mentions = nextcord.AllowedMentions(everyone=None, users=None, roles=None, replied_user=None)
+                await channel.send(
+                    get_localized(ROLE_GRANTED, locale).format(role.mention, member.mention), allowed_mentions=mentions
+                )
             else:
                 LOGGER.warn("Server channel for notification is None")
             LOGGER.info("Role '{}' has been granted to '{}' on server '{}'".format(
