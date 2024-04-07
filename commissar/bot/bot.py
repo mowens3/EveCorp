@@ -1,4 +1,5 @@
 import nextcord
+import os
 from nextcord.ext import commands
 
 from commissar.bot.cogs.admin_cog import AdminCog
@@ -40,6 +41,6 @@ class CommissarBot(commands.Bot, metaclass=SingletonMeta):
 
 def start() -> None:
     cfg = ConfigLoader().config
-    token = cfg['discord']['token']
+    token = os.environ["discord_token"]
     bot = CommissarBot()
     bot.run(token)
