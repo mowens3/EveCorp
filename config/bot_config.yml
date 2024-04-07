@@ -1,0 +1,8 @@
+discord:
+  scopes:
+  - role_connections.write
+  - identify
+auto:
+  expire_auth: '* 0/15 * * * *'
+  grants: '* 0/15 * * * *'
+  updates: '* * 0/4 * * *'
