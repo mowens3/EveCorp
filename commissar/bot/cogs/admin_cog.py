@@ -50,6 +50,8 @@ class AdminCog(commands.Cog):
                 raise BotException(get_localized(GUILD_ONLY, loc))
             _locale = Locale[locale].name
             server = server_repo.find_or_create(interaction.guild.id, interaction.guild.name)
+            print('channel')
+            print(channel)
             server.discord_channel_id = channel.id
             server.discord_channel_name = channel.name
             server.locale = locale
