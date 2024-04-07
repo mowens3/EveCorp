@@ -2,6 +2,9 @@ discord:
   scopes:
   - role_connections.write
   - identify
+esi:
+  scopes:
+  - publicData
 auto:
   expire_auth: '* 0/15 * * * *'
   grants: '* 0/15 * * * *'
