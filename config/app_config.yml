@@ -1,0 +1,8 @@
+postgresql:
+  url: postgresql://user:password@localhost:5432/commissar
+esi:
+  scopes:
+  - publicData
+app:
+  hostname: 0.0.0.0
+  port: 8080
