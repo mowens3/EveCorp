@@ -1,6 +1,6 @@
 import json
 import uuid
-
+import os
 import httpx
 
 from commissar import ConfigLoader
@@ -22,12 +22,12 @@ class OAuthService(metaclass=SingletonMeta):
     def __init__(self):
         try:
             cfg = ConfigLoader().config
-            self.client_id = cfg['esi']['client_id']
-            self.client_secret = cfg['esi']['client_secret']
+            self.client_id = os.environ["esi_client_id"]
+            self.client_secret = os.environ["esi_client_secret"]
             self.auth_header = helpers.get_authorization_header_value(self.client_id, self.client_secret)
             self.scopes = cfg['esi']['scopes']
-            self.callback_url = cfg['esi']['callback_url']
-            self.callback_host = cfg['esi']['callback_host']
+            self.callback_url = os.environ["esi_callback_url"]
+            self.callback_host = os.environ["esi_callback_host"]
         except KeyError as e:
             LOGGER.warn(e, exc_info=True)
 
