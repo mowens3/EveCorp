@@ -11,5 +11,5 @@ from commissar.app import app
 cfg = ConfigLoader().config
 
 
-start_app.app.start()
-start_bot.bot.start()
+# start_app.app.start()
+# start_bot.bot.start()
