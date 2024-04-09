@@ -13,7 +13,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         self.wfile.write(msg.encode())
 
 
-port = int(os.getenv('PORT', 80))
+port = int(4444)
 print('Listening on port %s' % (port))
 httpd = socketserver.TCPServer(('', port), Handler)
 httpd.serve_forever()
