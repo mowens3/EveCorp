@@ -11,7 +11,7 @@ from commissar import ConfigLoader
 
 cl = ConfigLoader()
 url = os.environ["db_string"]
-engine = create_engine(url, echo=False, pool_size=2, max_overflow=8, echo_pool=False, future=True)
+engine = create_engine(url, echo=False, pool_size=2, max_overflow=20, echo_pool=False, future=True)
 session_generator = sessionmaker(bind=engine, autocommit=False, autoflush=False)
 
 

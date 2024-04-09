@@ -9,8 +9,8 @@ from commissar import ConfigLoader
 from commissar import FORMATTER, LOGGING_FORMAT
 
 # info
-APP_NAME = "EVECommissarApp"
-APP_DESCRIPTION = '''EVECommissarApp is a simple flask application.
+APP_NAME = "EVEBot"
+APP_DESCRIPTION = '''EVEBot is a simple flask application.
 '''
 APP_VERSION = '0.0.1'
 

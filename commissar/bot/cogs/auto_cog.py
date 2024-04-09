@@ -162,7 +162,7 @@ class AutoCog(commands.Cog):
                         LOGGER.debug('No role')
                         break
                     channel = guild.get_channel(server.discord_channel_id)
-                    locale = Locale[server.locale]
+                    locale: nextcord.Locale = Locale.en_US
                     for u in user_data_repo.find_by_server_id(guild.id):
                         member = guild.get_member(u.discord_user_id)
                         if member is None:

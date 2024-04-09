@@ -139,6 +139,17 @@ REGISTER_LINK_TEXT = {
         "Ссылка будет действительна в течение {} минут и может быть использована для регистрации нескольких персонажей."
 }
 
+
+REGISTER_COMPLETE_TEXT = {
+    Locale.en_US.__str__():
+        "Hello, {}!\n\n"
+        "You successfully registered!!",
+
+    Locale.ru.__str__():
+        "Hello, {}!\n\n"
+        "You successfully registered!!",
+}
+
 REGISTER_LINK_SENT = {
     Locale.en_US.__str__(): "Registration link has been sent to user {}.",
     Locale.ru.__str__(): "Ссылка для регистрации отправлена пользователю {}."
