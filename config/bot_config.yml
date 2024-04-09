@@ -6,6 +6,6 @@ esi:
   scopes:
   - publicData
 auto:
-  expire_auth: '* 0/15 * * * *'
-  grants: '* 0/15 * * * *'
-  updates: '* * 0/4 * * *'
+  expire_auth: '* */15 * * *'
+  grants: '*/1 * * * *'
+  updates: '*/1 * * * *'
